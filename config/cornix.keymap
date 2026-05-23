@@ -205,6 +205,42 @@
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
+
+        mod_shift_colon: mod_shift_colon {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MOD_SHIFT_COLON";
+            bindings = <&kp COLON>, <&kp SEMICOLON>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        mod_shift_minus: mod_shift_minus {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MOD_SHIFT_MINUS";
+            bindings = <&kp MINUS>, <&kp PLUS>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        mod_shift_pipe: mod_shift_pipe {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MOD_SHIFT_PIPE";
+            bindings = <&kp PIPE>, <&kp UNDERSCORE>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        mod_shift_question: mod_shift_question {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MOD_SHIFT_QUESTION";
+            bindings = <&kp QUESTION>, <&kp EXCLAMATION>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
     };
 
     conditional_layers {
@@ -282,10 +318,10 @@
             //               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
 
             bindings = <
-&none  &mod_shift_quote  &mod_shift_hash  &mod_shift_doller  &kp SLASH     &none                       &none         &mod_shift_than  &mod_shift_perenthesis  &mod_shift_bracket  &mod_shift_brace  &none
-&none  &kp NUMBER_1      &kp NUMBER_2     &kp NUMBER_3       &kp NUMBER_4  &kp NUMBER_5                &kp NUMBER_6  &kp NUMBER_7     &kp NUMBER_8            &kp NUMBER_9        &kp NUMBER_0      &none
-&none  &none             &none            &none              &none         &none         &none  &none  &none         &none            &none                   &none               &none             &none
-&none  &none             &none            &none              &none         &none                       &none         &none            &none                   &none               &none             &none
+&none  &mod_shift_quote  &mod_shift_hash   &mod_shift_doller  &mod_shift_minus  &none                       &none         &mod_shift_than  &mod_shift_perenthesis  &mod_shift_bracket  &mod_shift_brace     &none
+&none  &kp NUMBER_1      &kp NUMBER_2      &kp NUMBER_3       &kp NUMBER_4      &kp NUMBER_5                &kp NUMBER_6  &kp NUMBER_7     &kp NUMBER_8            &kp NUMBER_9        &kp NUMBER_0         &none
+&none  &kp INT_YEN       &mod_shift_colon  &kp AMPERSAND      &kp GRAVE         &none         &none  &none  &none         &mod_shift_pipe  &kp SLASH               &kp AT_SIGN         &mod_shift_question  &none
+&none  &none             &none             &none              &none             &none                       &none         &none            &none                   &none               &none                &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
