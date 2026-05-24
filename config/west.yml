@@ -17,9 +17,6 @@ manifest:
       clone-depth: 1
       import:
         file: app/west.yml
-    - name: zmk-keyboard-cornix
-      remote: cornix-shield
-      revision: main
     - name: zmk-helpers
       remote: urob
       revision: main
