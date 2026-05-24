@@ -14,7 +14,7 @@ manifest:
     - name: zmk
       remote: zmkfirmware
       revision: main
-    #  clone-depth: 1
+      clone-depth: 1
       import:
         file: app/west.yml
     - name: zmk-keyboard-cornix
@@ -23,15 +23,15 @@ manifest:
     - name: zmk-helpers
       remote: urob
       revision: main
-    #  clone-depth: 1
+      clone-depth: 1
     #- name: zmk-rgbled-widget
     #  remote: hitsmaxft
     #  revision: main
     #  clone-depth: 1
-    #- name: zmk-dongle-display
-    #  remote: englmaxi
-    #  revision: main
-    #  clone-depth: 1
+    - name: zmk-dongle-display
+      remote: englmaxi
+      revision: main
+      clone-depth: 1
     #- name: zmk-dongle-screen
     #  remote: janpfischer
     #  revision: main
