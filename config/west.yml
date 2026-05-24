@@ -2,14 +2,14 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: hitsmaxft
+    - name: cornix-shield
       url-base: https://github.com/hitsmaxft
-    - name: englmaxi
-      url-base: https://github.com/englmaxi
+    #- name: englmaxi
+    #  url-base: https://github.com/englmaxi
     - name: urob
       url-base: https://github.com/urob
-    - name: janpfischer
-      url-base: https://github.com/janpfischer
+    #- name: janpfischer
+    #  url-base: https://github.com/janpfischer
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -17,6 +17,9 @@ manifest:
       clone-depth: 1
       import:
         file: app/west.yml
+    - name: zmk-keyboard-cornix
+      remote: cornix-shield
+      revision: main
     - name: zmk-helpers
       remote: urob
       revision: main
@@ -25,10 +28,10 @@ manifest:
     #  remote: hitsmaxft
     #  revision: main
     #  clone-depth: 1
-    - name: zmk-dongle-display
-      remote: englmaxi
-      revision: main
-      clone-depth: 1
+    #- name: zmk-dongle-display
+    #  remote: englmaxi
+    #  revision: main
+    #  clone-depth: 1
     #- name: zmk-dongle-screen
     #  remote: janpfischer
     #  revision: main
