@@ -5,8 +5,8 @@ on:
     branches:
       - "**"
     paths:
-      - "boards/*"
-      - "config/*"
+      - "boards/**"
+      - "config/**"
 
 jobs:
   build:
