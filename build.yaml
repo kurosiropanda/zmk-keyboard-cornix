@@ -26,10 +26,8 @@ include:
   #   shield: cornix_dongle_adapter dongle_screen
   #   snippet: studio-rpc-usb-uart
   #   artifact-name: cornix_dongle_zds_nano
-  - board: seeeduino_xiao_ble
-    shield: hummingbird rgbled_ws2812
   - board: cornix_left
-    shield: cornix_indicator
+  #  shield: cornix_indicator
     artifact-name: cornix_left_default_nosd
 
   #- board: cornix_ph_left
@@ -37,7 +35,7 @@ include:
   #  artifact-name: cornix_left_for_dongle_nosd
 
   - board: cornix_right
-    shield: cornix_indicator
+  #  shield: cornix_indicator
     artifact-name: cornix_right_nosd
 
   - board: cornix_right
