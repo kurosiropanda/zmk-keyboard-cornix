@@ -1,0 +1,47 @@
+name: Draw keymap
+
+# config/cornix.keymap を keymap-drawer で SVG 化し、draw/cornix.svg を自動コミットする。
+# 物理レイアウトは config/cornix.json (QMK info.json 形式) の LAYOUT_50 を使用。
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+    paths:
+      - "config/cornix.keymap"
+      - "config/cornix.json"
+      - ".github/workflows/draw.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install keymap-drawer
+        run: pip install keymap-drawer
+
+      - name: Parse keymap and draw SVG
+        run: |
+          mkdir -p draw
+          # includes/*.h は keymap ファイル相対で解決される。
+          # zmk-helpers/helper.h や <dt-bindings/...> 等の未発見インクルードは
+          # pcpp が pass-through するため west モジュールの取得は不要。
+          keymap parse -z config/cornix.keymap > draw/cornix.yaml
+          keymap draw draw/cornix.yaml -j config/cornix.json -l LAYOUT_50 > draw/cornix.svg
+
+      - name: Commit updated keymap image
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "キーマップ画像を自動更新 (keymap-drawer)"
+          file_pattern: "draw/cornix.svg draw/cornix.yaml"
