@@ -300,7 +300,7 @@
 
             bindings = <
 &kp TAB           &kp Q             &kp W         &kp E         &kp R             &kp T                                       &kp Y        &kp U             &kp I                 &kp O           &kp P           &kp JP_MINS
-&kp CAPSLOCK      &kp A             &kp S         &kp D         &kp F             &kp G                                       &kp H        &kp J             &kp K                 &kp L           &kp JP_BSLS     &kp JP_DQUO
+&kp CAPSLOCK      &kp A             &kp S         &kp D         &kp F             &kp G                                       &kp H        &kp J             &kp K                 &kp L           &kp JP_YEN      &kp JP_DQUO
 &kp LEFT_SHIFT    &kp Z             &kp X         &kp C         &kp V             &kp B        &kp C_MUTE  &kp K_SCREENSAVER  &kp N        &kp M             &kp COMMA             &kp DOT         &kp UP_ARROW    &kp JP_SLSH
 &kp LEFT_CONTROL  &kp LEFT_COMMAND  &kp LEFT_ALT  &lt 5 ESCAPE  &lt 1 LANGUAGE_2  &lt 4 SPACE                                 &lt 3 ENTER  &lt 2 LANGUAGE_1  &mod_shift_backspace  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
             >;
