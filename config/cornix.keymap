@@ -248,7 +248,7 @@
         compatible = "zmk,conditional-layers";
 
         adjust_layer {
-            if-layers = <2 7>;
+            if-layers = <2 6>;
             then-layer = <3>;
         };
     };
@@ -300,7 +300,7 @@
 
             bindings = <
 &kp TAB           &kp Q             &kp W         &kp E         &kp R             &kp T                                       &kp Y        &kp U             &kp I                 &kp O           &kp P           &kp JP_MINS
-&kp CAPSLOCK      &kp A             &kp S         &kp D         &kp F             &kp G                                       &kp H        &kp J             &kp K                 &kp L           &kp JP_YEN      &kp JP_DQUO
+&kp CAPSLOCK      &hm_l LGUI A      &hm_l LALT S  &hm_l LCTRL D  &hm_shift_l LSHFT F  &kp G                                  &kp H        &hm_shift_r RSHFT J  &hm_r RCTRL K        &hm_r RALT L    &hm_r RGUI JP_YEN  &kp JP_DQUO
 &kp LEFT_SHIFT    &kp Z             &kp X         &kp C         &kp V             &kp B        &kp C_MUTE  &kp K_SCREENSAVER  &kp N        &kp M             &kp COMMA             &kp DOT         &kp UP_ARROW    &kp JP_SLSH
 &kp LEFT_CONTROL  &kp LEFT_COMMAND  &kp LEFT_ALT  &lt 5 ESCAPE  &lt 1 LANGUAGE_2  &lt 4 SPACE                                 &lt 3 ENTER  &lt 2 LANGUAGE_1  &mod_shift_backspace  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
             >;
@@ -372,17 +372,35 @@
 &none  &none  &none           &mmv MOVE_UP    &kp PAGE_UP      &kp PAGE_DOWN                   &mkp MB1  &mkp MB3  &mkp MB2  &msc SCRL_UP  &msc SCRL_DOWN  &none
 &none  &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_UP                    &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT     &none           &none
 &none  &none  &none           &none           &none            &msc SCRL_DOWN  &trans  &trans  &trans    &trans    &none     &none         &none           &none
-&none  &none  &none           &mo 8           &trans           &trans                          &none     &none     &kp N5    &none         &none           &none
+&none  &none  &none           &mo 6           &trans           &trans                          &none     &none     &kp N5    &none         &none           &none
             >;
         };
 
         KeyPad_layer {
             display-name = "NumPad";
             bindings = <
-&mo 8  &none  &none  &none  &none  &none                  &kp KP_N7        &kp KP_N8        &kp KP_N9        &kp KP_MINUS  &kp KP_MULTIPLY  &none
+&mo 6  &none  &none  &none  &none  &none                  &kp KP_N7        &kp KP_N8        &kp KP_N9        &kp KP_MINUS  &kp KP_MULTIPLY  &none
 &none  &none  &none  &none  &none  &none                  &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_N6        &kp KP_PLUS   &kp KP_DIVIDE    &none
 &none  &none  &none  &none  &none  &none  &trans  &trans  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_N3        &none         &none            &none
-&none  &none  &none  &none  &none  &mo 8                  &kp KP_N0        &kp KP_DOT       &kp KP_NUMBER_0  &none         &none            &none
+&none  &none  &none  &none  &none  &mo 6                  &kp KP_N0        &kp KP_DOT       &kp KP_NUMBER_0  &none         &none            &none
+            >;
+        };
+
+        Debug_layer {
+            display-name = "Debug";
+
+            // ----------------------------------------------------------------------------------------------------------------------------
+            // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
+            // | EXTPWR | BTCLR | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
+            // |        | RGB_BRD | RGB_BRI |         |         |         |                  |      |      |       |      |       |       |
+            // |        |         |         |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
+            //                    |         |         |         |         |         | |      |      |      |       |      |
+
+            bindings = <
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                  &none        &none  &none   &none  &none  &none
+&none       &none         &none         &none         &none         &none                         &none        &none  &none   &none  &none  &none
+&none       &none         &none         &none         &none         &bootloader   &trans  &trans  &bootloader  &none  &none   &none  &none  &none
+&none       &none         &none         &none         &none         &none                         &none        &none  &kp N7  &none  &none  &none
             >;
         };
 
@@ -405,24 +423,6 @@
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
-        };
-
-        Debug_layer {
-            display-name = "Debug";
-
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
-            // | EXTPWR | BTCLR | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
-            // |        | RGB_BRD | RGB_BRI |         |         |         |                  |      |      |       |      |       |       |
-            // |        |         |         |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
-            //                    |         |         |         |         |         | |      |      |      |       |      |
-
-            bindings = <
-&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                  &none        &none  &none   &none  &none  &none
-&none       &none         &none         &none         &none         &none                         &none        &none  &none   &none  &none  &none
-&none       &none         &none         &none         &none         &bootloader   &trans  &trans  &bootloader  &none  &none   &none  &none  &none
-&none       &none         &none         &none         &none         &none                         &none        &none  &kp N7  &none  &none  &none
-            >;
         };
     };
 };
