@@ -27,6 +27,9 @@ CONFIG_ZMK_SPLIT=y
 
 CONFIG_ZMK_BLE=y
 
+# central(左)と送信出力を揃え、左右リンクの安定性・再接続性を改善
+CONFIG_BT_CTLR_TX_PWR_PLUS_8=y
+
 # never output usb
 CONFIG_ZMK_USB=n
 
