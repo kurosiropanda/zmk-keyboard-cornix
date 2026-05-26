@@ -253,38 +253,6 @@
         };
     };
 
-    combos {
-        compatible = "zmk,combos";
-
-        cb_ltm {
-            bindings = <&kp ESC>;
-            key-positions = <2 4>;
-            layers = <0 1>;
-        };
-
-        cb_lm {
-            bindings = <&kp TAB>;
-            key-positions = <14 16>;
-            layers = <0 1>;
-        };
-
-        cb_enter {
-            bindings = <&kp RET>;
-            key-positions = <21 19>;
-            layers = <0 1>;
-        };
-
-        layer3 {
-            bindings = <&kp N3>;
-            key-positions = <5 6>;
-        };
-
-        layer4 {
-            bindings = <&kp N4>;
-            key-positions = <5 6>;
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
@@ -342,7 +310,7 @@
 &trans  &kp F1  &kp F2  &kp F3   &kp F4  &kp F5                         &kp F6    &kp F7     &kp F8     &kp F9    &kp F10  &kp F11
 &trans  &kp N5  &kp N4  &kp N3   &kp N2  &kp N1                         &kp BSPC  &kp JP_MINS  &kp JP_EQL  &kp JP_PLUS  &kp JP_DQUO  &kp F12
 &trans  &kp N6  &kp N7  &kp N8   &kp N9  &kp N0         &trans  &trans  &kp TAB   &kp INS    &kp HOME   &kp END   &trans   &trans
-&none   &none   &none   &kp TAB  &trans  &kp BACKSPACE                  &trans    &trans     &kp N3     &none     &none    &none
+&none   &none   &none   &kp TAB  &trans  &kp BACKSPACE                  &trans    &trans     &trans     &none     &none    &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -362,7 +330,7 @@
 &bt BT_CLR      &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4                   &none   &none  &none   &none  &none             &none
 &studio_unlock  &bt BT_DISC 0  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4                  &tog 1  &to 0  &none   &none  &none             &none
 &bt BT_CLR_ALL  &none          &none          &none          &none          &none          &trans  &trans  &none   &none  &none   &none  &ext_power EP_ON  &none
-&none           &none          &none          &none          &none          &none                          &none   &none  &kp N4  &none  &none             &none
+&none           &none          &none          &none          &none          &none                          &none   &none  &trans  &none  &none             &none
             >;
         };
 
@@ -372,7 +340,7 @@
 &none  &none  &none           &mmv MOVE_UP    &kp PAGE_UP      &kp PAGE_DOWN                   &mkp MB1  &mkp MB3  &mkp MB2  &msc SCRL_UP  &msc SCRL_DOWN  &none
 &none  &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_UP                    &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT     &none           &none
 &none  &none  &none           &none           &none            &msc SCRL_DOWN  &trans  &trans  &trans    &trans    &none     &none         &none           &none
-&none  &none  &none           &mo 6           &trans           &trans                          &none     &none     &kp N5    &none         &none           &none
+&none  &none  &none           &mo 6           &trans           &trans                          &none     &none     &trans    &none         &none           &none
             >;
         };
 
@@ -400,7 +368,7 @@
 &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                  &none        &none  &none   &none  &none  &none
 &none       &none         &none         &none         &none         &none                         &none        &none  &none   &none  &none  &none
 &none       &none         &none         &none         &none         &bootloader   &trans  &trans  &bootloader  &none  &none   &none  &none  &none
-&none       &none         &none         &none         &none         &none                         &none        &none  &kp N7  &none  &none  &none
+&none       &none         &none         &none         &none         &none                         &none        &none  &trans  &none  &none  &none
             >;
         };
 
