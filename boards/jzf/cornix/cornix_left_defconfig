@@ -34,6 +34,15 @@ CONFIG_ZMK_SPLIT_ROLE_CENTRAL=y
 
 # 增加键盘的 BLE 无线电的发射功率，用解决延迟和左右通讯不佳的问题
 CONFIG_BT_CTLR_TX_PWR_PLUS_8=y
+
+# --- split 左右リンクの再接続性向上（実験的）---
+# central が急に切れた後、右(peripheral)がリンク断を素早く検出して
+# 広告を再開し、自動再接続できるようにする。
+# slave latency=0 で右は毎接続イベントで起動（消費電力は増えるが取りこぼし無し）。
+CONFIG_ZMK_SPLIT_BLE_PREF_LATENCY=0
+# supervision timeout を 10ms 単位で指定（200=2秒）。既定(4秒)より短縮し、
+# 死んだリンクを早期に検出して広告を再開させる。
+CONFIG_ZMK_SPLIT_BLE_PREF_TIMEOUT=200
 # 更改键盘默认显示名称
 
 # 电池电量报告间隔时间单位是秒
