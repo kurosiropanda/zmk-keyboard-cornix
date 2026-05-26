@@ -39,14 +39,12 @@ CONFIG_BT_CTLR_TX_PWR_PLUS_8=y
 # 再接続を実際に直しているのは supervision timeout の短縮(下記)。
 # slave latency は右(peripheral)が省電力のため接続イベントを間引く度合い。
 # 大きいほど右が眠れて電池が持つが、常時の反応と再接続はやや遅くなる。
-# latency=50: 省電力寄り(右が接続イベントを間引いて眠る)。打鍵には影響せず。
-# これ以上(70等)に上げると下記timeoutでは BLE パラメータが無効化され、
-# 再接続できなくなることを確認済み。50 が壊れにくい実用上限の目安。
+# latency=50: 省電力をさらに優先(右がより多くの接続イベントを間引く)。
+# 0=最速・最大消費 / 値が大きいほど電池が持つが反応・再接続は遅くなる。
 CONFIG_ZMK_SPLIT_BLE_PREF_LATENCY=50
-# supervision timeout を 10ms 単位で指定（400=4秒）。
-# 条件: timeout > (1+latency) x 接続interval x 2 を満たすための余裕を確保。
-# latency=50 を安定動作させるため 3秒から 4秒へ。
-CONFIG_ZMK_SPLIT_BLE_PREF_TIMEOUT=400
+# supervision timeout を 10ms 単位で指定（300=3秒）。既定(4秒)より短縮しつつ、
+# 高い latency でも BLE パラメータが妥当になるよう 2秒から少し余裕を持たせた値。
+CONFIG_ZMK_SPLIT_BLE_PREF_TIMEOUT=300
 # 更改键盘默认显示名称
 
 # 电池电量报告间隔时间单位是秒
