@@ -17,14 +17,14 @@
 
 #define HM_TAPPING_TERM_FAST 200
 #define HM_PRIOR_IDLE 70
-#define BASE 0
-#define WIN 1
-#define LOWER 2
-#define RAISE 3
-#define ADJUST 4
-#define NAVI   5
-#define NUM    6
-#define DEBUG  7
+#define BASE    0
+#define SYMBOL  1
+#define MIX     2
+#define ADJUST  3
+#define NAVI    4
+#define NUMPAD  5
+#define DEBUG   6
+#define SYMBOLS 7
 
 // https://github.com/urob/zmk-config/tree/main#timeless-homerow-mods
 
@@ -248,8 +248,8 @@
         compatible = "zmk,conditional-layers";
 
         adjust_layer {
-            if-layers = <2 6>;
-            then-layer = <3>;
+            if-layers = <MIX DEBUG>;
+            then-layer = <ADJUST>;
         };
     };
 
@@ -259,18 +259,19 @@
         default_layer {
             display-name = "Base";
 
+            // Base — homerow mods on hold: (L) A=GUI S=ALT D=CTRL F=SHIFT  (R) J=SHIFT K=CTRL L=ALT ¥=GUI
+            // Thumb hold = layer: ESC->L5(NumPad)  英数->L1(Symbol)  SPC->L4(Navi)  ENT->L3(Adjust)  かな->L2(Mix)
             // ------------------------------------------------------------------------------------------------------------
-            // |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |       |
-            // |  ESC  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | BKSPC |
-            // |  TAB  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
-            // | SHIFT |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-            //               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
+            // |  TAB  |  Q  |  W  |  E  |  R  |  T  |                |  Y   |  U  |  I  |  O  |  P  |  -  |
+            // | CAPS  |  A  |  S  |  D  |  F  |  G  |                |  H   |  J  |  K  |  L  |  ¥  |  "  |
+            // | SHIFT |  Z  |  X  |  C  |  V  |  B  | MUTE | |SAVER |  N   |  M  |  ,  |  .  |  ↑  |  /  |
+            // | CTRL  | GUI | ALT | ESC |英数 | SPC |      | | ENT  |かな  | BSP |  ←  |  ↓  |  →  |
 
             bindings = <
 &kp TAB           &kp Q             &kp W         &kp E         &kp R             &kp T                                       &kp Y        &kp U             &kp I                 &kp O           &kp P           &kp JP_MINS
 &kp CAPSLOCK      &hm_l LGUI A      &hm_l LALT S  &hm_l LCTRL D  &hm_shift_l LSHFT F  &kp G                                  &kp H        &hm_shift_r RSHFT J  &hm_r RCTRL K        &hm_r RALT L    &hm_r RGUI JP_YEN  &kp JP_DQUO
 &kp LEFT_SHIFT    &kp Z             &kp X         &kp C         &kp V             &kp B        &kp C_MUTE  &kp K_SCREENSAVER  &kp N        &kp M             &kp COMMA             &kp DOT         &kp UP_ARROW    &kp JP_SLSH
-&kp LEFT_CONTROL  &kp LEFT_COMMAND  &kp LEFT_ALT  &lt 5 ESCAPE  &lt 1 LANGUAGE_2  &lt 4 SPACE                                 &lt 3 ENTER  &lt 2 LANGUAGE_1  &mod_shift_backspace  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
+&kp LEFT_CONTROL  &kp LEFT_COMMAND  &kp LEFT_ALT  &lt NUMPAD ESCAPE  &lt SYMBOL LANGUAGE_2  &lt NAVI SPACE                                 &lt ADJUST ENTER  &lt MIX LANGUAGE_1  &mod_shift_backspace  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -279,12 +280,12 @@
         symbol_layer {
             display-name = "Symbol";
 
+            // Symbol — symbols (mod-morph = tap/shift) + number row.  Reached by holding 英数(L1).
             // ------------------------------------------------------------------------------------------------------------
-            // |   `   |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |       |
-            // |  ESC  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | BKSPC |
-            // |  TAB  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |   '   |
-            // | SHIFT |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-            //               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
+            // |     |  '" |  #* |  $% |  -+ |     |                |     |  <> |  () |  [] |  {} |     |
+            // |     |  1  |  2  |  3  |  4  |  5  |                |  6  |  7  |  8  |  9  |  0  |     |
+            // |     |  =  |  :; |  &  |  `  |  ^  |      | |       |  \  |  ¥  |  /  |  @  |  ?! |     |
+            // |     |     |     |     |     |     |      | |       |     |     |     |     |     |     |
 
             bindings = <
 &none  &mod_shift_quote  &mod_shift_hash   &mod_shift_doller  &mod_shift_minus  &none                       &none         &mod_shift_than  &mod_shift_perenthesis  &mod_shift_bracket  &mod_shift_brace     &none
@@ -299,18 +300,18 @@
         Mix_layer {
             display-name = "Mix";
 
+            // Role: Function keys + ascending number block (left) / edit & navigation (right)
             // ------------------------------------------------------------------------------------------------------------
-            // | BTCLR | BT1  | BT2  |  BT3  |  BT4  |  BT5 |                |      |      |       |      |       |       |
-            // |       | INS  | PSCR | GUI   |       |      |                | PGUP |      |   ^   |      |       |       |
-            // |       | ALT  | CTRL | SHIFT |       | CAPS |                | PGDN |   <- |   v   |  ->  |  DEL  | BKSPC |
-            // |       | UNDO | CUT  | COPY  | PASTE |      |      |  |      |      |      |       |      |       |       |
-            //                |      |       |       |      |      |  |      |      |      |       |      |
+            // |       |  F1 |  F2 |  F3  |  F4  |  F5  |                | F6   | F7   | F8    | F9   | F10   | F11  |
+            // |       |  1  |  2  |  3   |  4   |  5   |                | BKSP |  -   |  =    |  +   |   "   | F12  |
+            // |       |  6  |  7  |  8   |  9   |  0   |                | TAB  | INS  | HOME  | END  |       |      |
+            // |       |     |     |      |      | BKSP |       |  |     |      |      |       |      |       |      |
 
             bindings = <
 &trans  &kp F1  &kp F2  &kp F3   &kp F4  &kp F5                         &kp F6    &kp F7     &kp F8     &kp F9    &kp F10  &kp F11
-&trans  &kp N5  &kp N4  &kp N3   &kp N2  &kp N1                         &kp BSPC  &kp JP_MINS  &kp JP_EQL  &kp JP_PLUS  &kp JP_DQUO  &kp F12
+&trans  &kp N1  &kp N2  &kp N3   &kp N4  &kp N5                         &kp BSPC  &kp JP_MINS  &kp JP_EQL  &kp JP_PLUS  &kp JP_DQUO  &kp F12
 &trans  &kp N6  &kp N7  &kp N8   &kp N9  &kp N0         &trans  &trans  &kp TAB   &kp INS    &kp HOME   &kp END   &trans   &trans
-&none   &none   &none   &kp TAB  &trans  &kp BACKSPACE                  &trans    &trans     &trans     &none     &none    &none
+&none   &none   &none   &trans   &trans  &kp BACKSPACE                  &trans    &trans     &trans     &none     &none    &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -319,16 +320,16 @@
         Adjust_layer {
             display-name = "Adjust";
 
+            // Adjust — Bluetooth & system.  Reached by holding ENT(L3), or Mix(L2)+Debug(L6).
             // ----------------------------------------------------------------------------------------------------------------------------
-            // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
-            // | moDEBUG| RGB_HUD | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
-            // | EXTPWR | RGB_BRD | RGB_BRI |         |         |         |                  |      |      |       |      |       |       |
-            // |        |         |         |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
-            //                    |         |         |         |         |         | |      |      |      |       |      |
+            // | BTCLR  |  BT0   |  BT1   |  BT2   |  BT3   |  BT4   |                  |       |      |       |      |       |      |
+            // | STUDIO | BTDIS0 | BTDIS1 | BTDIS2 | BTDIS3 | BTDIS4 |                  | TOG1  | TO0  |       |      |       |      |
+            // |BTCLRALL|        |        |        |        |        |        |  |      |       |      |       |      | EXTPWR|      |
+            // |        |        |        |        |        |        |        |  |      |       |      |       |      |       |      |
 
             bindings = <
 &bt BT_CLR      &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4                   &none   &none  &none   &none  &none             &none
-&studio_unlock  &bt BT_DISC 0  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4                  &tog 1  &to 0  &none   &none  &none             &none
+&studio_unlock  &bt BT_DISC 0  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4                  &tog SYMBOL  &to BASE  &none   &none  &none             &none
 &bt BT_CLR_ALL  &none          &none          &none          &none          &none          &trans  &trans  &none   &none  &none   &none  &ext_power EP_ON  &none
 &none           &none          &none          &none          &none          &none                          &none   &none  &trans  &none  &none             &none
             >;
@@ -340,29 +341,29 @@
 &none  &none  &none           &mmv MOVE_UP    &kp PAGE_UP      &kp PAGE_DOWN                   &mkp MB1  &mkp MB3  &mkp MB2  &msc SCRL_UP  &msc SCRL_DOWN  &none
 &none  &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_UP                    &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT     &none           &none
 &none  &none  &none           &none           &none            &msc SCRL_DOWN  &trans  &trans  &trans    &trans    &none     &none         &none           &none
-&none  &none  &none           &mo 6           &trans           &trans                          &none     &none     &trans    &none         &none           &none
+&none  &none  &none           &mo DEBUG           &trans           &trans                          &none     &none     &trans    &none         &none           &none
             >;
         };
 
         KeyPad_layer {
             display-name = "NumPad";
             bindings = <
-&mo 6  &none  &none  &none  &none  &none                  &kp KP_N7        &kp KP_N8        &kp KP_N9        &kp KP_MINUS  &kp KP_MULTIPLY  &none
+&mo DEBUG  &none  &none  &none  &none  &none                  &kp KP_N7        &kp KP_N8        &kp KP_N9        &kp KP_MINUS  &kp KP_MULTIPLY  &none
 &none  &none  &none  &none  &none  &none                  &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_N6        &kp KP_PLUS   &kp KP_DIVIDE    &none
 &none  &none  &none  &none  &none  &none  &trans  &trans  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_N3        &none         &none            &none
-&none  &none  &none  &none  &none  &mo 6                  &kp KP_N0        &kp KP_DOT       &kp KP_ENTER  &none         &none            &none
+&none  &none  &none  &none  &none  &mo DEBUG                  &kp KP_N0        &kp KP_DOT       &kp KP_ENTER  &none         &none            &none
             >;
         };
 
         Debug_layer {
             display-name = "Debug";
 
+            // Debug — BT select & bootloader.  Reached by holding &mo DEBUG (NumPad / Navi).
             // ----------------------------------------------------------------------------------------------------------------------------
-            // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
-            // | EXTPWR | BTCLR | RGB_HUI | RGB_SAD | RGB_SAI | RGB_EFF |                  |      |      |       |      |       |       |
-            // |        | RGB_BRD | RGB_BRI |         |         |         |                  |      |      |       |      |       |       |
-            // |        |         |         |         |         |         | RGB_TOG | |      |      |      |       |      |       |       |
-            //                    |         |         |         |         |         | |      |      |      |       |      |
+            // | BTCLR  |  BT0   |  BT1   |  BT2   |  BT3   |  BT4   |                  |      |      |       |      |       |      |
+            // |        |        |        |        |        |        |                  |      |      |       |      |       |      |
+            // |        |        |        |        |        | BOOTL  |       |  | BOOTL |      |      |       |      |       |      |
+            // |        |        |        |        |        |        |       |  |       |      |      |       |      |       |      |
 
             bindings = <
 &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                  &none        &none  &none   &none  &none  &none
