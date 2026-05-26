@@ -321,7 +321,7 @@
             bindings = <
 &none  &mod_shift_quote  &mod_shift_hash   &mod_shift_doller  &mod_shift_minus  &none                       &none         &mod_shift_than  &mod_shift_perenthesis  &mod_shift_bracket  &mod_shift_brace     &none
 &none  &kp NUMBER_1      &kp NUMBER_2      &kp NUMBER_3       &kp NUMBER_4      &kp NUMBER_5                &kp NUMBER_6  &kp NUMBER_7     &kp NUMBER_8            &kp NUMBER_9        &kp NUMBER_0         &none
-&none  &kp JP_YEN        &mod_shift_colon  &kp JP_AMPR        &kp JP_GRV        &kp JP_CIRC   &none  &none  &kp JP_BSLS   &kp JP_YEN       &kp JP_SLSH             &kp JP_AT           &mod_shift_question  &none
+&none  &kp JP_EQL        &mod_shift_colon  &kp JP_AMPR        &kp JP_GRV        &kp JP_CIRC   &none  &none  &kp JP_BSLS   &kp JP_YEN       &kp JP_SLSH             &kp JP_AT           &mod_shift_question  &none
 &none  &none             &none             &none              &none             &none                       &none         &none            &none                   &none               &none                &none
             >;
 
@@ -360,8 +360,8 @@
 
             bindings = <
 &bt BT_CLR      &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_SEL 4                   &none   &none  &none   &none  &none             &none
-&studio_unlock  &bt BT_DISC 0  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4                  &tog 1  &to 0  &none   &none  &none             &tog 1
-&bt BT_CLR_ALL  &none          &none          &none          &none          &none          &trans  &trans  &none   &none  &none   &none  &ext_power EP_ON  &kp CAPSLOCK
+&studio_unlock  &bt BT_DISC 0  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3  &bt BT_DISC 4                  &tog 1  &to 0  &none   &none  &none             &none
+&bt BT_CLR_ALL  &none          &none          &none          &none          &none          &trans  &trans  &none   &none  &none   &none  &ext_power EP_ON  &none
 &none           &none          &none          &none          &none          &none                          &none   &none  &kp N4  &none  &none             &none
             >;
         };
@@ -382,7 +382,7 @@
 &mo 6  &none  &none  &none  &none  &none                  &kp KP_N7        &kp KP_N8        &kp KP_N9        &kp KP_MINUS  &kp KP_MULTIPLY  &none
 &none  &none  &none  &none  &none  &none                  &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_N6        &kp KP_PLUS   &kp KP_DIVIDE    &none
 &none  &none  &none  &none  &none  &none  &trans  &trans  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_N3        &none         &none            &none
-&none  &none  &none  &none  &none  &mo 6                  &kp KP_N0        &kp KP_DOT       &kp KP_NUMBER_0  &none         &none            &none
+&none  &none  &none  &none  &none  &mo 6                  &kp KP_N0        &kp KP_DOT       &kp KP_ENTER  &none         &none            &none
             >;
         };
 
