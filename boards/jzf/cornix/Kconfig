@@ -8,3 +8,31 @@ config BOARD_CORNIX_CHARGER
     bool "Enable battery charger"
     default y
     depends on ( BOARD_CORNIX_LEFT || BOARD_CORNIX_RIGHT || BOARD_CORNIX_PH_LEFT )
+
+config CORNIX_STATUS_LED
+    bool "Cornix WS2812 status indicator (manual-style scheme)"
+    depends on LED_STRIP
+    help
+      Drive the 2 onboard WS2812 LEDs (alias status-ws2812) to show
+      Bluetooth channel/connection, split-link, and battery status,
+      mirroring the stock-firmware indicator behaviour described in
+      doc/cornix-manual-ja.md. Requires the WS2812 hardware to be
+      enabled (e.g. via the cornix_indicator shield).
+
+if CORNIX_STATUS_LED
+
+config CORNIX_STATUS_LED_BRIGHTNESS
+    int "Status LED brightness (1-255)"
+    range 1 255
+    default 64
+
+config CORNIX_STATUS_LED_INTERVAL_MS
+    int "Slow-blink interval for ongoing states (ms)"
+    default 1500
+
+config CORNIX_STATUS_LED_BATTERY_LOW
+    int "Battery percentage at/below which the low-battery blink shows"
+    range 1 100
+    default 20
+
+endif # CORNIX_STATUS_LED

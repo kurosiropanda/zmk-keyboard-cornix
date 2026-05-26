@@ -38,6 +38,15 @@ include:
   #  shield: cornix_indicator
     artifact-name: cornix_right_nosd
 
+  # WS2812 status indicator variants (manual-style scheme; higher power draw)
+  - board: cornix_left
+    shield: cornix_indicator
+    artifact-name: cornix_left_indicator_nosd
+
+  - board: cornix_right
+    shield: cornix_indicator
+    artifact-name: cornix_right_indicator_nosd
+
   - board: cornix_right
     shield: settings_reset
     snippet: studio-rpc-usb-uart nrf52840-nosd
