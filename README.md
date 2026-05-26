@@ -48,6 +48,7 @@ you have two solutions
 - [x] no-SD image, since v2.3
 - [x] support various of dongles
 - [x] upgrade to zephyr4.1 and lvgl9 , since v2.7, no dongle screen support yet
+- [x] JIS (Japanese) layout symbols, via `config/includes/jis.h`
 - [ ] rgb since in future v3
 
 
@@ -58,6 +59,27 @@ Cornix shield has 2 RGB LEDs on each side, controled by PWM in the stock firmwar
 The replacement solution is adapting the RGB indicator module to light up these RGBs, to achieve the same effect as the stock firmware, which uses the RGB LEDs to indicate battery status and connection status.
 
 But it is not supported yet in this repository.  PR is welcome!
+
+### Keyboard layout: JIS (Japanese)
+
+The committed keymap (`config/cornix.keymap`) outputs symbols for a host PC set
+to the **Japanese (JIS)** OS keyboard layout. ZMK sends raw HID usages, which
+the OS interprets according to its selected layout, so a US-oriented keymap
+produces wrong symbols on a JIS host (e.g. `|` comes out as `}`).
+
+To make the symbols correct, the keymap uses the `JP_*` macros defined in
+**`config/includes/jis.h`** (modeled after QMK's `keymap_japanese.h`). Each
+macro emits the intended character via the HID usage + shift state the JIS
+driver expects. All symbol bindings and the `mod_shift_*` mod-morph behaviors
+use these macros.
+
+Notes:
+- `` ` `` (backtick) is `JP_GRV` (`LS(LBKT)`); plain `&kp GRAVE` on JIS is the
+  半角/全角 (IME toggle) key, not a backtick.
+- `]` / `}` use `BSLH` (HID `0x31`). If your host maps the `]}` key to `NUHS`
+  (`0x32`) instead, change `JP_RBRC` in `jis.h` to `NUHS`.
+- If you instead want a **US** OS layout, set your PC to US and revert to the
+  plain ZMK symbol keycodes (remove the `JP_*` usage / `jis.h` include).
 
 ## Supported Hardware: Cornix Split Keyboard
 
