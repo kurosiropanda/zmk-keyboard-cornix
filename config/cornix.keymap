@@ -386,7 +386,7 @@
             >;
         };
 
-        Symbol_layer {
+        symbols_layer {
             display-name = "Symbols";
 
             // TODO: Some binds are waiting for shifted keycode support.
