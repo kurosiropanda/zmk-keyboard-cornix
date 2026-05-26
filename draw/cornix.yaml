@@ -1,0 +1,410 @@
+layout: {zmk_keyboard: cornix}
+layers:
+  Base:
+  - TAB
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - '-'
+  - CAPSLOCK
+  - {t: A, h: LGUI}
+  - {t: S, h: LALT}
+  - {t: D, h: LCTRL}
+  - {t: F, h: LSHFT}
+  - G
+  - H
+  - {t: J, h: RSHFT}
+  - {t: K, h: RCTRL}
+  - {t: L, h: RALT}
+  - {t: INT YEN, h: RGUI}
+  - Sft+2
+  - LEFT SHIFT
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - MUTE
+  - SCREENSAVER
+  - N
+  - M
+  - ','
+  - .
+  - UP ARROW
+  - /
+  - LEFT CONTROL
+  - LEFT COMMAND
+  - LEFT ALT
+  - {t: ESCAPE, h: NumPad}
+  - {t: LANGUAGE 2, h: Symbol}
+  - {t: SPACE, h: Navi}
+  - {t: ENTER, h: Adjust}
+  - {t: LANGUAGE 1, h: Mix}
+  - {t: BACKSPACE, s: DELETE}
+  - LEFT ARROW
+  - DOWN ARROW
+  - RIGHT ARROW
+  Symbol:
+  - ''
+  - {t: Sft+7, s: Sft+2}
+  - {t: Sft+3, s: Sft+'}
+  - {t: Sft+4, s: Sft+5}
+  - {t: '-', s: Sft+;}
+  - ''
+  - ''
+  - {t: 'Sft+,', s: Sft+.}
+  - {t: Sft+8, s: Sft+9}
+  - {t: ']', s: \}
+  - {t: 'Sft+]', s: Sft+\}
+  - ''
+  - ''
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - ''
+  - ''
+  - Sft+-
+  - {t: '''', s: ;}
+  - Sft+6
+  - Sft+[
+  - '='
+  - ''
+  - ''
+  - INT1
+  - INT YEN
+  - /
+  - '['
+  - {t: Sft+/, s: Sft+1}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {type: held}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  Mix:
+  - {t: ▽, type: trans}
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - F11
+  - {t: ▽, type: trans}
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - BSPC
+  - '-'
+  - Sft+-
+  - Sft+;
+  - Sft+2
+  - F12
+  - {t: ▽, type: trans}
+  - '6'
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - TAB
+  - INS
+  - HOME
+  - END
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - BACKSPACE
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  Adjust:
+  - BT CLR
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - {t: BT, h: '4'}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&studio_unlock'
+  - {t: BT DISC, h: '0'}
+  - {t: BT DISC, h: '1'}
+  - {t: BT DISC, h: '2'}
+  - {t: BT DISC, h: '3'}
+  - {t: BT DISC, h: '4'}
+  - {t: Symbol, h: toggle}
+  - {t: Base, h: toggle}
+  - ''
+  - ''
+  - ''
+  - ''
+  - BT CLR ALL
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  - ''
+  - EP ON
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {type: held}
+  - ''
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  Navi:
+  - ''
+  - ''
+  - ''
+  - '&mmv MOVE_UP'
+  - PAGE UP
+  - PAGE DOWN
+  - '&mkp MB1'
+  - '&mkp MB3'
+  - '&mkp MB2'
+  - '&msc SCRL_UP'
+  - '&msc SCRL_DOWN'
+  - ''
+  - ''
+  - ''
+  - '&mmv MOVE_LEFT'
+  - '&mmv MOVE_DOWN'
+  - '&mmv MOVE_RIGHT'
+  - '&msc SCRL_UP'
+  - LEFT
+  - DOWN
+  - UP
+  - RIGHT
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&msc SCRL_DOWN'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - Debug
+  - {t: ▽, type: trans}
+  - {type: held}
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  NumPad:
+  - Debug
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - KP 7
+  - KP 8
+  - KP 9
+  - KP MINUS
+  - KP MULTIPLY
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - KP 4
+  - KP 5
+  - KP 6
+  - KP PLUS
+  - KP DIVIDE
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - KP 1
+  - KP 2
+  - KP 3
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {type: held}
+  - ''
+  - Debug
+  - KP 0
+  - KP DOT
+  - KP ENTER
+  - ''
+  - ''
+  - ''
+  Debug:
+  - BT CLR
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - {t: BT, h: '4'}
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - '&bootloader'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&bootloader'
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {type: held}
+  - ''
+  - {type: held}
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - ''
+  - ''
+  - ''
+  Symbols:
+  - ''
+  - Sft+1
+  - '['
+  - Sft+3
+  - Sft+4
+  - Sft+5
+  - '='
+  - Sft+6
+  - Sft+'
+  - Sft+8
+  - Sft+9
+  - Sft+INT YEN
+  - ''
+  - ''
+  - ']'
+  - \
+  - Sft+]
+  - Sft+\
+  - Sft+-
+  - Sft+INT1
+  - '-'
+  - Sft+;
+  - Sft+2
+  - Sft+7
+  - ''
+  - ''
+  - \
+  - Sft+9
+  - Sft+INT YEN
+  - INT1
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - /
+  - Sft+/
+  - Sft+[
+  - Sft+=
+  - Sft+7
+  - ''
+  - ''
+  - ''
+  - ''
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - Sft+=
+  - {t: ▽, type: trans}
+  - Sft+[
+  - ''
+  - ''
+  - ''
