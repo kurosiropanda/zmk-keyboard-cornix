@@ -6,6 +6,7 @@
 
 #include "zmk-helpers/helper.h"
 #include "includes/cornix54.h"
+#include "includes/jis.h"
 
 // tap windows for ctl alt and gui
 
@@ -146,7 +147,7 @@
         mod_shift_quote: mod_shift_quote {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_QUOTE";
-            bindings = <&kp SINGLE_QUOTE>, <&kp DOUBLE_QUOTES>;
+            bindings = <&kp JP_QUOT>, <&kp JP_DQUO>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -155,7 +156,7 @@
         mod_shift_hash: mod_shift_hash {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_HASH";
-            bindings = <&kp HASH>, <&kp ASTERISK>;
+            bindings = <&kp JP_HASH>, <&kp JP_ASTR>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -164,7 +165,7 @@
         mod_shift_doller: mod_shift_doller {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_DOLLER";
-            bindings = <&kp DOLLAR>, <&kp PERCENT>;
+            bindings = <&kp JP_DLR>, <&kp JP_PERC>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -173,7 +174,7 @@
         mod_shift_than: mod_shift_than {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_THAN";
-            bindings = <&kp LESS_THAN>, <&kp GREATER_THAN>;
+            bindings = <&kp JP_LABK>, <&kp JP_RABK>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -182,7 +183,7 @@
         mod_shift_perenthesis: mod_shift_perenthesis {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_PERENTHESIS";
-            bindings = <&kp LS(LEFT_PARENTHESIS)>, <&kp RIGHT_PARENTHESIS>;
+            bindings = <&kp JP_LPRN>, <&kp JP_RPRN>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -191,7 +192,7 @@
         mod_shift_bracket: mod_shift_bracket {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_BRACKET";
-            bindings = <&kp LEFT_BRACKET>, <&kp RIGHT_BRACKET>;
+            bindings = <&kp JP_LBRC>, <&kp JP_RBRC>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -200,7 +201,7 @@
         mod_shift_brace: mod_shift_brace {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_BRACE";
-            bindings = <&kp LEFT_BRACE>, <&kp RIGHT_BRACE>;
+            bindings = <&kp JP_LCBR>, <&kp JP_RCBR>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -209,7 +210,7 @@
         mod_shift_colon: mod_shift_colon {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_COLON";
-            bindings = <&kp COLON>, <&kp SEMICOLON>;
+            bindings = <&kp JP_COLN>, <&kp JP_SCLN>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -218,7 +219,7 @@
         mod_shift_minus: mod_shift_minus {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_MINUS";
-            bindings = <&kp MINUS>, <&kp PLUS>;
+            bindings = <&kp JP_MINS>, <&kp JP_PLUS>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -227,7 +228,7 @@
         mod_shift_pipe: mod_shift_pipe {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_PIPE";
-            bindings = <&kp PIPE>, <&kp UNDERSCORE>;
+            bindings = <&kp JP_PIPE>, <&kp JP_UNDS>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -236,7 +237,7 @@
         mod_shift_question: mod_shift_question {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_QUESTION";
-            bindings = <&kp QUESTION>, <&kp EXCLAMATION>;
+            bindings = <&kp JP_QUES>, <&kp JP_EXLM>;
 
             #binding-cells = <0>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -298,9 +299,9 @@
             //               | GUI | ALT  | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  | ALT   | GUI  |
 
             bindings = <
-&kp TAB           &kp Q             &kp W         &kp E         &kp R             &kp T                                       &kp Y        &kp U             &kp I                 &kp O           &kp P           &kp MINUS
-&kp CAPSLOCK      &kp A             &kp S         &kp D         &kp F             &kp G                                       &kp H        &kp J             &kp K                 &kp L           &kp BACKSLASH   &kp DOUBLE_QUOTES
-&kp LEFT_SHIFT    &kp Z             &kp X         &kp C         &kp V             &kp B        &kp C_MUTE  &kp K_SCREENSAVER  &kp N        &kp M             &kp COMMA             &kp DOT         &kp UP_ARROW    &kp SLASH
+&kp TAB           &kp Q             &kp W         &kp E         &kp R             &kp T                                       &kp Y        &kp U             &kp I                 &kp O           &kp P           &kp JP_MINS
+&kp CAPSLOCK      &kp A             &kp S         &kp D         &kp F             &kp G                                       &kp H        &kp J             &kp K                 &kp L           &kp JP_BSLS     &kp JP_DQUO
+&kp LEFT_SHIFT    &kp Z             &kp X         &kp C         &kp V             &kp B        &kp C_MUTE  &kp K_SCREENSAVER  &kp N        &kp M             &kp COMMA             &kp DOT         &kp UP_ARROW    &kp JP_SLSH
 &kp LEFT_CONTROL  &kp LEFT_COMMAND  &kp LEFT_ALT  &lt 5 ESCAPE  &lt 1 LANGUAGE_2  &lt 4 SPACE                                 &lt 3 ENTER  &lt 2 LANGUAGE_1  &mod_shift_backspace  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
             >;
 
@@ -320,7 +321,7 @@
             bindings = <
 &none  &mod_shift_quote  &mod_shift_hash   &mod_shift_doller  &mod_shift_minus  &none                       &none         &mod_shift_than  &mod_shift_perenthesis  &mod_shift_bracket  &mod_shift_brace     &none
 &none  &kp NUMBER_1      &kp NUMBER_2      &kp NUMBER_3       &kp NUMBER_4      &kp NUMBER_5                &kp NUMBER_6  &kp NUMBER_7     &kp NUMBER_8            &kp NUMBER_9        &kp NUMBER_0         &none
-&none  &kp INT_YEN       &mod_shift_colon  &kp AMPERSAND      &kp GRAVE         &none         &none  &none  &none         &mod_shift_pipe  &kp SLASH               &kp AT_SIGN         &mod_shift_question  &none
+&none  &kp JP_YEN        &mod_shift_colon  &kp JP_AMPR        &kp JP_GRV        &none         &none  &none  &none         &mod_shift_pipe  &kp JP_SLSH             &kp JP_AT           &mod_shift_question  &none
 &none  &none             &none             &none              &none             &none                       &none         &none            &none                   &none               &none                &none
             >;
 
@@ -339,7 +340,7 @@
 
             bindings = <
 &trans  &kp F1  &kp F2  &kp F3   &kp F4  &kp F5                         &kp F6    &kp F7     &kp F8     &kp F9    &kp F10  &kp F11
-&trans  &kp N5  &kp N4  &kp N3   &kp N2  &kp N1                         &kp BSPC  &kp MINUS  &kp EQUAL  &kp PLUS  &kp DQT  &kp F12
+&trans  &kp N5  &kp N4  &kp N3   &kp N2  &kp N1                         &kp BSPC  &kp JP_MINS  &kp JP_EQL  &kp JP_PLUS  &kp JP_DQUO  &kp F12
 &trans  &kp N6  &kp N7  &kp N8   &kp N9  &kp N0         &trans  &trans  &kp TAB   &kp INS    &kp HOME   &kp END   &trans   &trans
 &none   &none   &none   &kp TAB  &trans  &kp BACKSPACE                  &trans    &trans     &kp N3     &none     &none    &none
             >;
@@ -397,10 +398,10 @@
             //               |     |      |      |      |        |  |       |      |       |       |      |
 
             bindings = <
-&none  &kp EXCL  &kp AT    &kp HASH  &kp DLLR  &kp PRCNT                  &kp CARET  &kp AMPS      &kp ASTRK  &kp LPAR   &kp RPAR  &kp PIPE
-&none  &none     &kp LBKT  &kp RBKT  &kp LBRC  &kp RBRC                   &kp EQUAL  &kp UNDER     &kp MINUS  &kp PLUS   &kp DQT   &kp SQT
-&none  &none     &kp RBKT  &kp RPAR  &kp PIPE  &kp BSLH   &trans  &trans  &kp FSLH   &kp QUESTION  &kp GRAVE  &kp TILDE  &kp SQT   &none
-&none  &none     &none     &none     &trans    &trans                     &kp TILDE  &trans        &kp GRAVE  &none      &none     &none
+&none  &kp JP_EXLM  &kp JP_AT    &kp JP_HASH  &kp JP_DLR  &kp JP_PERC                    &kp JP_CIRC  &kp JP_AMPR   &kp JP_ASTR  &kp JP_LPRN  &kp JP_RPRN  &kp JP_PIPE
+&none  &none        &kp JP_LBRC  &kp JP_RBRC  &kp JP_LCBR  &kp JP_RCBR                   &kp JP_EQL   &kp JP_UNDS   &kp JP_MINS  &kp JP_PLUS  &kp JP_DQUO  &kp JP_QUOT
+&none  &none        &kp JP_RBRC  &kp JP_RPRN  &kp JP_PIPE  &kp JP_BSLS  &trans  &trans   &kp JP_SLSH  &kp JP_QUES   &kp JP_GRV   &kp JP_TILD  &kp JP_QUOT  &none
+&none  &none        &none        &none        &trans       &trans                        &kp JP_TILD  &trans        &kp JP_GRV   &none        &none        &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
