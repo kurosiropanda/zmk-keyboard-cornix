@@ -62,6 +62,12 @@ But it is not supported yet in this repository.  PR is welcome!
 
 ### Keyboard layout: JIS (Japanese)
 
+![Cornix keymap](draw/cornix.svg)
+
+> The diagram above is auto-generated from `config/cornix.keymap` by the
+> [`Draw keymap`](.github/workflows/draw.yml) GitHub Actions workflow
+> (keymap-drawer) and refreshed on every keymap change.
+
 The committed keymap (`config/cornix.keymap`) outputs symbols for a host PC set
 to the **Japanese (JIS)** OS keyboard layout. ZMK sends raw HID usages, which
 the OS interprets according to its selected layout, so a US-oriented keymap

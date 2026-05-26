@@ -58,6 +58,12 @@ Cornix 扩展板每侧有 2 个 RGB LED，由 PWM 在原始固件中控制。
 
 ### 键盘布局：JIS（日语）
 
+![Cornix 键位图](draw/cornix.svg)
+
+> 上方键位图由 [`Draw keymap`](.github/workflows/draw.yml) GitHub Actions
+> 工作流（keymap-drawer）根据 `config/cornix.keymap` 自动生成，并在每次键映射
+> 变更时刷新。
+
 已提交的键映射（`config/cornix.keymap`）针对主机 PC 设置为 **日语（JIS）**
 操作系统键盘布局时输出符号。ZMK 发送原始 HID 用法码，操作系统会根据所选布局
 进行解释，因此面向 US 布局的键映射在 JIS 主机上会产生错误的符号（例如 `|`
