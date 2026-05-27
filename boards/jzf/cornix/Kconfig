@@ -35,4 +35,16 @@ config CORNIX_STATUS_LED_BATTERY_LOW
     range 1 100
     default 20
 
+config CORNIX_STATUS_LED_BATTERY_FULL
+    int "Battery percentage at/above which charging is treated as complete"
+    range 1 100
+    default 97
+    help
+      While on USB power (VBUS), the battery/charge LED slow-blinks green
+      to show "charging" until the reported state of charge reaches this
+      value, at which point it blinks green once ("charge complete") and
+      then stays off. The hardware has no charge-status pin, so completion
+      is inferred from the battery gauge. Only effective when CONFIG_ZMK_USB
+      is enabled (the right half disables USB by default).
+
 endif # CORNIX_STATUS_LED
