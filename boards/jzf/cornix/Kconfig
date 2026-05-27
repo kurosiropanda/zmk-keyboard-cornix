@@ -26,10 +26,6 @@ config CORNIX_STATUS_LED_BRIGHTNESS
     range 1 255
     default 64
 
-config CORNIX_STATUS_LED_INTERVAL_MS
-    int "Slow-blink interval for ongoing states (ms)"
-    default 1500
-
 config CORNIX_STATUS_LED_BATTERY_LOW
     int "Battery percentage at/below which the low-battery blink shows"
     range 1 100
