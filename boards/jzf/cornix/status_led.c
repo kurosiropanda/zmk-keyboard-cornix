@@ -122,6 +122,7 @@ static struct led_rgb chan_color(int idx) {
 #define FAST_PERIOD_MS 500
 #define ONESHOT_MS 1000    /* 一度点灯後消灯: connection / charge complete */
 #define FRAME_MS 50        /* animation step (thread only ticks while animating) */
+#define IDLE_POLL_MS 2000  /* central: re-poll BT link when idle (missed events) */
 
 enum led_mode { MODE_OFF, MODE_SLOW, MODE_FAST };
 
@@ -170,8 +171,22 @@ static void fire_oneshot(int led, struct led_rgb color) {
 /* Derive each LED's ongoing pattern from the tracked state (manual mapping). */
 static void recompute_modes(void) {
 #if IS_CENTRAL
-    /* Left light: Bluetooth — slow blink in channel colour while searching. */
-    set_mode(LED_BT, s_bt_connected ? MODE_OFF : MODE_SLOW, chan_color(s_bt_index));
+    /*
+     * Left light: Bluetooth. Read the LIVE connection state, not a cached flag.
+     * ZMK only raises zmk_ble_active_profile_changed when the connecting peer
+     * address matches the bonded profile address, which fails for hosts using
+     * resolvable private addresses (RPA: macOS/iOS/Windows) — leaving a cache
+     * stuck "searching" while actually connected. Polling here (on the render
+     * thread) is reliable, and pulses once on the connect transition.
+     */
+    int bt_idx = zmk_ble_active_profile_index();
+    bool bt_conn = zmk_ble_active_profile_is_connected();
+    if (bt_conn && !s_bt_connected) {
+        fire_oneshot(LED_BT, chan_color(bt_idx)); /* connected -> light once then off */
+    }
+    s_bt_connected = bt_conn;
+    s_bt_index = bt_idx;
+    set_mode(LED_BT, bt_conn ? MODE_OFF : MODE_SLOW, chan_color(bt_idx));
 
     /* Right light: right-unit link / charge / battery (one light, by priority). */
     if (!s_periph_connected) {
@@ -246,9 +261,15 @@ static void led_thread(void *a, void *b, void *c) {
     ARG_UNUSED(c);
     while (1) {
         bool active = render_frame();
-        /* Animating -> tick at FRAME_MS but wake instantly on a state change;
-         * idle -> sleep until the next state change. */
-        k_sem_take(&wake_sem, active ? K_MSEC(FRAME_MS) : K_FOREVER);
+        /*
+         * Animating -> tick at FRAME_MS; idle -> sleep until a state change.
+         * On the central we re-poll every IDLE_POLL_MS even when idle, because
+         * the BLE profile-changed event can be missed (RPA hosts), so a
+         * connect/disconnect must still be picked up by polling is_connected().
+         * A state-change event (kick) wakes us instantly regardless.
+         */
+        k_timeout_t idle = IS_CENTRAL ? K_MSEC(IDLE_POLL_MS) : K_FOREVER;
+        k_sem_take(&wake_sem, active ? K_MSEC(FRAME_MS) : idle);
     }
 }
 
@@ -291,12 +312,8 @@ static int led_event_cb(const zmk_event_t *eh) {
 
 #if IS_CENTRAL
     if (as_zmk_ble_active_profile_changed(eh)) {
-        bool was = s_bt_connected;
-        s_bt_index = zmk_ble_active_profile_index();
-        s_bt_connected = zmk_ble_active_profile_is_connected();
-        if (s_bt_connected && !was) {
-            fire_oneshot(LED_BT, chan_color(s_bt_index)); /* connected */
-        }
+        /* recompute_modes() reads the live BT state and pulses on connect;
+         * just wake the thread (this event is unreliable for RPA hosts). */
         kick();
         return ZMK_EV_EVENT_BUBBLE;
     }
