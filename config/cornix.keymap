@@ -135,6 +135,20 @@
             quick-tap-ms = <200>;
         };
 
+        // IME-toggle thumbs (英数=LANGUAGE_2 / かな=LANGUAGE_1).
+        // "balanced" + short term so the tap only fires on a deliberate, isolated
+        // press; any key interleaved during typing resolves to the layer (hold),
+        // preventing accidental input-source switches mid-typing.
+        lt_ime: layer_tap_ime {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            bindings = <&mo>, <&kp>;
+
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+        };
+
         mod_shift_backspace: mod_shift_backspace {
             compatible = "zmk,behavior-mod-morph";
             label = "MOD_SHIFT_BACKSPACE";
@@ -271,7 +285,7 @@
 &kp TAB           &kp Q             &kp W         &kp E         &kp R             &kp T                                       &kp Y        &kp U             &kp I                 &kp O           &kp P           &kp JP_MINS
 &kp CAPSLOCK      &hm_l LGUI A      &hm_l LALT S  &hm_l LCTRL D  &hm_shift_l LSHFT F  &kp G                                  &kp H        &hm_shift_r RSHFT J  &hm_r RCTRL K        &hm_r RALT L    &hm_r RGUI JP_YEN  &kp JP_DQUO
 &kp LEFT_SHIFT    &kp Z             &kp X         &kp C         &kp V             &kp B        &kp C_MUTE  &kp K_SCREENSAVER  &kp N        &kp M             &kp COMMA             &kp DOT         &kp UP_ARROW    &kp JP_SLSH
-&kp LEFT_CONTROL  &kp LEFT_COMMAND  &kp LEFT_ALT  &lt NUMPAD ESCAPE  &lt SYMBOL LANGUAGE_2  &lt NAVI SPACE                                 &lt ADJUST ENTER  &lt MIX LANGUAGE_1  &mod_shift_backspace  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
+&kp LEFT_CONTROL  &kp LEFT_COMMAND  &kp LEFT_ALT  &lt NUMPAD ESCAPE  &lt_ime SYMBOL LANGUAGE_2  &lt NAVI SPACE                                 &lt ADJUST ENTER  &lt_ime MIX LANGUAGE_1  &mod_shift_backspace  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
