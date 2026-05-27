@@ -62,6 +62,7 @@
 #define HAS_USB IS_ENABLED(CONFIG_ZMK_USB)
 
 #if IS_CENTRAL
+#include <zephyr/bluetooth/conn.h>
 #include <zmk/ble.h>
 #include <zmk/events/ble_active_profile_changed.h>
 #else
@@ -112,6 +113,28 @@ static struct led_rgb chan_color(int idx) {
     default:
         return COL_BLUE;
     }
+}
+
+/*
+ * Is a host (PC/phone) connected over BLE? On the split central the keyboard
+ * is the PERIPHERAL on host links and the CENTRAL on the split link, so a
+ * connected peripheral-role LE connection means "host connected". This reads
+ * Zephyr's live connection table directly, bypassing zmk_ble_active_profile_*
+ * which keys off the bonded profile address and returns false for hosts using
+ * resolvable private addresses (RPA) — the reason the BT LED stayed blinking.
+ */
+static void host_conn_count_cb(struct bt_conn *conn, void *data) {
+    struct bt_conn_info info;
+    if (bt_conn_get_info(conn, &info) == 0 && info.role == BT_CONN_ROLE_PERIPHERAL &&
+        info.state == BT_CONN_STATE_CONNECTED) {
+        (*(int *)data)++;
+    }
+}
+
+static bool host_connected(void) {
+    int n = 0;
+    bt_conn_foreach(BT_CONN_TYPE_LE, host_conn_count_cb, &n);
+    return n > 0;
 }
 #endif
 
@@ -172,15 +195,13 @@ static void fire_oneshot(int led, struct led_rgb color) {
 static void recompute_modes(void) {
 #if IS_CENTRAL
     /*
-     * Left light: Bluetooth. Read the LIVE connection state, not a cached flag.
-     * ZMK only raises zmk_ble_active_profile_changed when the connecting peer
-     * address matches the bonded profile address, which fails for hosts using
-     * resolvable private addresses (RPA: macOS/iOS/Windows) — leaving a cache
-     * stuck "searching" while actually connected. Polling here (on the render
-     * thread) is reliable, and pulses once on the connect transition.
+     * Left light: Bluetooth. Use the live Zephyr connection table (see
+     * host_connected) rather than zmk_ble_active_profile_is_connected(), which
+     * returned false for RPA hosts and left this LED stuck blinking. The
+     * channel index still picks the colour. Pulse once on the connect edge.
      */
     int bt_idx = zmk_ble_active_profile_index();
-    bool bt_conn = zmk_ble_active_profile_is_connected();
+    bool bt_conn = host_connected();
     if (bt_conn && !s_bt_connected) {
         fire_oneshot(LED_BT, chan_color(bt_idx)); /* connected -> light once then off */
     }
@@ -368,7 +389,7 @@ static int cornix_status_led_init(void) {
 #endif
 #if IS_CENTRAL
     s_bt_index = zmk_ble_active_profile_index();
-    s_bt_connected = zmk_ble_active_profile_is_connected();
+    s_bt_connected = host_connected();
 #endif
     kick(); /* render the seeded state once the thread starts */
     return 0;
