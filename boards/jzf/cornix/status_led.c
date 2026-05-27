@@ -29,13 +29,14 @@
  * "light once then off" = one solid ONESHOT_MS pulse.
  *
  * Charge detection (confirmed by analysing the stock RMK firmware in
- * rmk-firmware/: it is a HaoboGu RMK build with no charge-status GPIO —
- * pinmux.c drives P0.05 as a charger *control* output, battery is read only
- * via SAADC). So, like the stock firmware, "charging" is inferred from USB
- * VBUS power (zmk_usb_is_powered) and "complete" from the battery gauge
- * reaching CONFIG_CORNIX_STATUS_LED_BATTERY_FULL while powered. Needs
- * CONFIG_ZMK_USB; the right half disables USB by default, so its charge
- * state is compiled out unless USB is enabled in the shield .conf.
+ * rmk-firmware/: a HaoboGu RMK build with no charge-status GPIO — pinmux.c
+ * drives P0.05 as a charger *control* output, battery is read only via SAADC).
+ * So, like the stock firmware, "charging" is inferred from VBUS power and
+ * "complete" from the battery gauge reaching CONFIG_CORNIX_STATUS_LED_BATTERY_FULL
+ * while powered. VBUS is read via vbus_present(): the central uses
+ * zmk_usb_is_powered(); the peripheral has CONFIG_ZMK_USB off (enabling it slows
+ * input and reports VBUS=false anyway) so it reads the nRF USBREGSTATUS
+ * VBUS-detect bit directly — no USB stack needed. Both halves show charging.
  *
  * Threading/latency: ALL rendering runs on a dedicated low-priority thread,
  * never the system work queue. ZMK raises keyboard input, HID and even the
@@ -113,11 +114,7 @@ static const struct device *const strip = DEVICE_DT_GET(STRIP_NODE);
 static const struct led_rgb COL_RED = {.r = SCALE(255), .g = 0, .b = 0};
 static const struct led_rgb COL_BLUE = {.r = 0, .g = 0, .b = SCALE(255)};
 static const struct led_rgb COL_OFF = {.r = 0, .g = 0, .b = 0};
-/* Green is only used by the BT channel colour (central) or charging (USB);
- * guard it so the USB-less right half doesn't trip -Wunused-const-variable. */
-#if IS_CENTRAL || HAS_USB
 static const struct led_rgb COL_GREEN = {.r = 0, .g = SCALE(255), .b = 0};
-#endif
 
 #if IS_CENTRAL
 static struct led_rgb chan_color(int idx) {
@@ -181,7 +178,7 @@ static bool any_conn(uint8_t role) {
  * Colour families (green/red vs blue/magenta) also reveal the chain index ->
  * physical-side mapping. Set back to 0 for normal operation.
  */
-#define CORNIX_LED_DIAG 1
+#define CORNIX_LED_DIAG 0
 
 enum led_mode { MODE_OFF, MODE_SLOW, MODE_FAST };
 
@@ -196,11 +193,9 @@ static struct led_state leds[STRIP_NPIX];
 static struct led_rgb shown[STRIP_NPIX]; /* what's currently on the strip */
 
 /* ---- Tracked state (set by events, read by the render thread) ---- */
-static bool s_batt_low;
-#if HAS_USB
-static bool s_powered;
-static bool s_batt_full;
-#endif
+static bool s_batt_low;     /* SoC <= LOW threshold (from battery events) */
+static bool s_batt_full;    /* SoC >= FULL threshold (from battery events) */
+static bool s_chg_done;     /* edge latch for the charge-complete one-shot */
 #if IS_CENTRAL
 static int s_bt_index;
 static bool s_bt_connected;
@@ -225,6 +220,15 @@ static void set_mode(int led, enum led_mode mode, struct led_rgb color) {
 static void fire_oneshot(int led, struct led_rgb color) {
     leds[led].oneshot_color = color;
     leds[led].oneshot_until = k_uptime_get() + ONESHOT_MS;
+}
+
+/* Charge complete: one green pulse when SoC reaches full while on VBUS power. */
+static void note_charge(bool powered) {
+    bool full_charge = powered && s_batt_full;
+    if (full_charge && !s_chg_done) {
+        fire_oneshot(LED_BATT, COL_GREEN); /* 充電完了: 一度点灯後消灯 */
+    }
+    s_chg_done = full_charge;
 }
 
 /* Derive each LED's ongoing pattern from the tracked state (manual mapping). */
@@ -254,29 +258,27 @@ __maybe_unused static void recompute_modes(void) {
     s_periph_connected = periph;
 
     /* Right light: right-unit link / charge / battery (one light, by priority). */
+    bool powered = vbus_present();
+    note_charge(powered);
     if (!s_periph_connected) {
-        set_mode(LED_AUX, MODE_SLOW, COL_BLUE);
-#if HAS_USB
-    } else if (s_powered) {
-        set_mode(LED_AUX, s_batt_full ? MODE_OFF : MODE_SLOW, COL_GREEN);
-#endif
-    } else if (s_batt_low) {
-        set_mode(LED_AUX, MODE_FAST, COL_RED);
+        set_mode(LED_AUX, MODE_SLOW, COL_BLUE);   /* right unit lost */
+    } else if (powered && !s_batt_full) {
+        set_mode(LED_AUX, MODE_SLOW, COL_GREEN);  /* charging */
+    } else if (s_batt_low && !powered) {
+        set_mode(LED_AUX, MODE_FAST, COL_RED);    /* low battery */
     } else {
-        set_mode(LED_AUX, MODE_OFF, COL_OFF);
+        set_mode(LED_AUX, MODE_OFF, COL_OFF);     /* idle / charge complete */
     }
 #else
     /* Left light: battery / charge. */
-#if HAS_USB
-    if (s_powered) {
-        set_mode(LED_BATT, s_batt_full ? MODE_OFF : MODE_SLOW, COL_GREEN);
-    } else if (s_batt_low) {
-#else
-    if (s_batt_low) {
-#endif
-        set_mode(LED_BATT, MODE_FAST, COL_RED);
+    bool powered = vbus_present();
+    note_charge(powered);
+    if (powered && !s_batt_full) {
+        set_mode(LED_BATT, MODE_SLOW, COL_GREEN); /* charging */
+    } else if (s_batt_low && !powered) {
+        set_mode(LED_BATT, MODE_FAST, COL_RED);   /* low battery */
     } else {
-        set_mode(LED_BATT, MODE_OFF, COL_OFF);
+        set_mode(LED_BATT, MODE_OFF, COL_OFF);    /* idle / charge complete */
     }
 
     /* Right light: left-unit link. */
@@ -354,14 +356,13 @@ static void led_thread(void *a, void *b, void *c) {
     while (1) {
         bool active = render_frame();
         /*
-         * Animating -> tick at FRAME_MS; idle -> sleep until a state change.
-         * On the central we re-poll every IDLE_POLL_MS even when idle, because
-         * the BLE profile-changed event can be missed (RPA hosts), so a
-         * connect/disconnect must still be picked up by polling is_connected().
-         * A state-change event (kick) wakes us instantly regardless.
+         * Animating -> tick at FRAME_MS; idle -> re-poll every IDLE_POLL_MS.
+         * We poll even when idle because the inputs are read live, not pushed:
+         * the BLE link state (RPA hosts miss the profile event) and VBUS/charging
+         * (read from the nRF register, no event on the peripheral). A state-change
+         * event (kick) still wakes us instantly for responsiveness.
          */
-        k_timeout_t idle = IS_CENTRAL ? K_MSEC(IDLE_POLL_MS) : K_FOREVER;
-        k_sem_take(&wake_sem, active ? K_MSEC(FRAME_MS) : idle);
+        k_sem_take(&wake_sem, active ? K_MSEC(FRAME_MS) : K_MSEC(IDLE_POLL_MS));
     }
 }
 
@@ -378,26 +379,15 @@ static int led_event_cb(const zmk_event_t *eh) {
     const struct zmk_battery_state_changed *batt = as_zmk_battery_state_changed(eh);
     if (batt) {
         s_batt_low = batt->state_of_charge <= CONFIG_CORNIX_STATUS_LED_BATTERY_LOW;
-#if HAS_USB
-        bool full = batt->state_of_charge >= CONFIG_CORNIX_STATUS_LED_BATTERY_FULL;
-        if (s_powered && full && !s_batt_full) {
-            fire_oneshot(LED_BATT, COL_GREEN); /* charge complete */
-        }
-        s_batt_full = full;
-#endif
+        s_batt_full = batt->state_of_charge >= CONFIG_CORNIX_STATUS_LED_BATTERY_FULL;
+        /* recompute_modes() reads VBUS live and fires the charge-complete pulse. */
         kick();
         return ZMK_EV_EVENT_BUBBLE;
     }
 
 #if HAS_USB
-    const struct zmk_usb_conn_state_changed *usb = as_zmk_usb_conn_state_changed(eh);
-    if (usb) {
-        bool powered = zmk_usb_is_powered();
-        if (powered && !s_powered && s_batt_full) {
-            fire_oneshot(LED_BATT, COL_GREEN); /* plugged in already full */
-        }
-        s_powered = powered;
-        kick();
+    if (as_zmk_usb_conn_state_changed(eh)) {
+        kick(); /* VBUS change; recompute_modes() reads it live via vbus_present() */
         return ZMK_EV_EVENT_BUBBLE;
     }
 #endif
@@ -448,10 +438,8 @@ static int cornix_status_led_init(void) {
     }
     led_strip_update_rgb(strip, shown, STRIP_NPIX);
 
-    /* Seed state so boot-time conditions render correctly. */
-#if HAS_USB
-    s_powered = zmk_usb_is_powered();
-#endif
+    /* Seed state so boot-time conditions render correctly (VBUS/charge are
+     * read live in recompute_modes; nothing to seed here for them). */
 #if IS_CENTRAL
     s_bt_index = zmk_ble_active_profile_index();
     s_bt_connected = host_connected();
