@@ -168,7 +168,7 @@ static bool any_conn(uint8_t role) {
  * Colour families (green/red vs blue/magenta) also reveal the chain index ->
  * physical-side mapping. Set back to 0 for normal operation.
  */
-#define CORNIX_LED_DIAG 0
+#define CORNIX_LED_DIAG 1
 
 enum led_mode { MODE_OFF, MODE_SLOW, MODE_FAST };
 
@@ -300,8 +300,12 @@ static bool render_frame(void) {
     d[0] = host_connected() ? GRN : RED;
     d[1] = s_periph_connected ? BLU : MAG;
 #else
-    d[0] = s_unit_connected ? GRN : RED;
-    d[1] = BLU;
+#if HAS_USB
+    d[0] = zmk_usb_is_powered() ? GRN : RED; /* VBUS present (charging)? */
+#else
+    d[0] = RED;                              /* CONFIG_ZMK_USB disabled */
+#endif
+    d[1] = s_unit_connected ? BLU : MAG;     /* split link to central */
 #endif
     bool ch = false;
     for (size_t i = 0; i < STRIP_NPIX && i < 2; i++) {
