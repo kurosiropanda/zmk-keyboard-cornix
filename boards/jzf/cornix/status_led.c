@@ -72,7 +72,20 @@
 #if HAS_USB
 #include <zmk/usb.h>
 #include <zmk/events/usb_conn_state_changed.h>
+#else
+/* No ZMK USB stack (e.g. the peripheral, where enabling it slows input): read
+ * the nRF USB regulator's VBUS-detect bit directly — works with no USB stack. */
+#include <hal/nrf_power.h>
 #endif
+
+/* True while 5V VBUS is present on this half's USB port (i.e. charging). */
+static inline bool vbus_present(void) {
+#if HAS_USB
+    return zmk_usb_is_powered();
+#else
+    return nrf_power_usbregstatus_vbusdet_get(NRF_POWER);
+#endif
+}
 
 LOG_MODULE_REGISTER(cornix_status_led, CONFIG_ZMK_LOG_LEVEL);
 
@@ -300,11 +313,7 @@ static bool render_frame(void) {
     d[0] = host_connected() ? GRN : RED;
     d[1] = s_periph_connected ? BLU : MAG;
 #else
-#if HAS_USB
-    d[0] = zmk_usb_is_powered() ? GRN : RED; /* VBUS present (charging)? */
-#else
-    d[0] = RED;                              /* CONFIG_ZMK_USB disabled */
-#endif
+    d[0] = vbus_present() ? GRN : RED;       /* VBUS present (charging)? */
     d[1] = s_unit_connected ? BLU : MAG;     /* split link to central */
 #endif
     bool ch = false;
