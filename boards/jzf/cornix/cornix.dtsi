@@ -23,6 +23,10 @@
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
         wakeup-source;
+        /* Anti-chatter debounce for both halves (was 5ms left / 3ms right).
+         * Raise if chatter persists; lower slightly to trim input latency. */
+        debounce-press-ms = <8>;
+        debounce-release-ms = <8>;
     };
 
 };

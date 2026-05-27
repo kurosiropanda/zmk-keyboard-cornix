@@ -41,11 +41,9 @@ config ZMK_SPLIT_ROLE_CENTRAL
 config ZMK_SPLIT_BLE_ROLE_CENTRAL
 	default n
 
-# Add keyboard debouncing
-config ZMK_KSCAN_DEBOUNCE_PRESS_MS
-    default 3
-config ZMK_KSCAN_DEBOUNCE_RELEASE_MS
-    default 3
+# Debounce is set on the shared kscan0 node in cornix.dtsi (debounce-press-ms /
+# debounce-release-ms) so both halves match. The old right-only 3ms override is
+# removed — it was lower than default and would override the devicetree value.
 
 endif # BOARD_CORNIX_RIGHT
 
