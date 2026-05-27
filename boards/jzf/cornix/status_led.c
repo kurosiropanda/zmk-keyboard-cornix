@@ -24,8 +24,8 @@
  *   LED1 (right light, left-unit link): lost -> blue slow blink,
  *     connected -> blue light once then off
  *
- * Pattern timing (the manual distinguishes "点滅"/blink from "ゆっくり点滅"/slow
- * blink): slow blink = SLOW_ON/SLOW_PERIOD, blink = FAST_ON/FAST_PERIOD,
+ * Pattern: ongoing states "breathe" (smooth fade up/down) over SLOW_PERIOD_MS
+ * (searching / link lost / charging) or the faster FAST_PERIOD_MS (low battery);
  * "light once then off" = one solid ONESHOT_MS pulse.
  *
  * Charge detection (confirmed by analysing the stock RMK firmware in
@@ -169,22 +169,10 @@ static bool any_conn(uint8_t role) {
 
 /* Raised-cosine breathing curve, 0->255->0 over 32 steps (perceptually smooth
  * ease at both ends). Indexed by the phase position within the period. */
-__maybe_unused static const uint8_t breath_lut[32] = {
+static const uint8_t breath_lut[32] = {
     0,   2,   10,  21,  37,  57,  79,  103, 128, 152, 176, 198, 218, 234, 245, 253,
     255, 253, 245, 234, 218, 198, 176, 152, 128, 103, 79,  57,  37,  21,  10,  2,
 };
-
-/*
- * TEMPORARY diagnostic mode. When 1, both LEDs show SOLID colours encoding the
- * raw internal signals (no blinking), so we can see ground truth on hardware:
- *   Central (left):  LED0 = host_connected()? GREEN:RED   (BT host link)
- *                    LED1 = split connected?  BLUE:MAGENTA (right-unit link)
- *   Peripheral(right): LED0 = central link?   GREEN:RED
- *                      LED1 = always BLUE (position marker)
- * Colour families (green/red vs blue/magenta) also reveal the chain index ->
- * physical-side mapping. Set back to 0 for normal operation.
- */
-#define CORNIX_LED_DIAG 0
 
 enum led_mode { MODE_OFF, MODE_SLOW, MODE_FAST };
 
@@ -194,6 +182,8 @@ struct led_state {
     int64_t oneshot_until;       /* if > now, show oneshot_color solid */
     struct led_rgb oneshot_color;
 };
+
+BUILD_ASSERT(STRIP_NPIX >= 2, "Cornix status LED expects a 2-LED ws2812 chain");
 
 static struct led_state leds[STRIP_NPIX];
 static struct led_rgb shown[STRIP_NPIX]; /* what's currently on the strip */
@@ -238,7 +228,7 @@ static void note_charge(bool powered) {
 }
 
 /* Derive each LED's ongoing pattern from the tracked state (manual mapping). */
-__maybe_unused static void recompute_modes(void) {
+static void recompute_modes(void) {
 #if IS_CENTRAL
     /*
      * Left light: Bluetooth. Use the live Zephyr connection table (see
@@ -287,12 +277,17 @@ __maybe_unused static void recompute_modes(void) {
         set_mode(LED_BATT, MODE_OFF, COL_OFF);    /* idle / charge complete */
     }
 
-    /* Right light: left-unit link. */
-    set_mode(LED_UNIT, s_unit_connected ? MODE_OFF : MODE_SLOW, COL_BLUE);
+    /* Right light: left-unit (central) link — read live, pulse once on connect. */
+    bool unit = zmk_split_bt_peripheral_is_connected();
+    if (unit && !s_unit_connected) {
+        fire_oneshot(LED_UNIT, COL_BLUE); /* left unit connected -> light once then off */
+    }
+    s_unit_connected = unit;
+    set_mode(LED_UNIT, unit ? MODE_OFF : MODE_SLOW, COL_BLUE);
 #endif
 }
 
-__maybe_unused static struct led_rgb scale_rgb(struct led_rgb c, uint8_t lvl) {
+static struct led_rgb scale_rgb(struct led_rgb c, uint8_t lvl) {
     struct led_rgb o = {
         .r = (uint8_t)((uint16_t)c.r * lvl / 255),
         .g = (uint8_t)((uint16_t)c.g * lvl / 255),
@@ -302,8 +297,7 @@ __maybe_unused static struct led_rgb scale_rgb(struct led_rgb c, uint8_t lvl) {
 }
 
 /* Colour this LED should show right now; sets *active if it still animates. */
-__maybe_unused static struct led_rgb render_led(const struct led_state *st, int64_t now,
-                                                bool *active) {
+static struct led_rgb render_led(const struct led_state *st, int64_t now, bool *active) {
     if (now < st->oneshot_until) {
         *active = true;
         return st->oneshot_color; /* "点灯後消灯": solid pulse, no breathing */
@@ -319,31 +313,6 @@ __maybe_unused static struct led_rgb render_led(const struct led_state *st, int6
 
 /* Render one frame; returns true while something still needs animating. */
 static bool render_frame(void) {
-#if CORNIX_LED_DIAG
-    const struct led_rgb GRN = {.r = 0, .g = SCALE(255), .b = 0};
-    const struct led_rgb RED = {.r = SCALE(255), .g = 0, .b = 0};
-    const struct led_rgb BLU = {.r = 0, .g = 0, .b = SCALE(255)};
-    const struct led_rgb MAG = {.r = SCALE(255), .g = 0, .b = SCALE(255)};
-    struct led_rgb d[2];
-#if IS_CENTRAL
-    d[0] = host_connected() ? GRN : RED;
-    d[1] = s_periph_connected ? BLU : MAG;
-#else
-    d[0] = vbus_present() ? GRN : RED;       /* VBUS present (charging)? */
-    d[1] = s_unit_connected ? BLU : MAG;     /* split link to central */
-#endif
-    bool ch = false;
-    for (size_t i = 0; i < STRIP_NPIX && i < 2; i++) {
-        if (!rgb_eq(d[i], shown[i])) {
-            shown[i] = d[i];
-            ch = true;
-        }
-    }
-    if (ch && device_is_ready(strip)) {
-        led_strip_update_rgb(strip, shown, STRIP_NPIX);
-    }
-    return true; /* keep polling so signal changes show up */
-#else
     recompute_modes();
     int64_t now = k_uptime_get();
     bool active = false;
@@ -360,7 +329,6 @@ static bool render_frame(void) {
         led_strip_update_rgb(strip, shown, STRIP_NPIX);
     }
     return active;
-#endif /* CORNIX_LED_DIAG */
 }
 
 static void led_thread(void *a, void *b, void *c) {
@@ -420,11 +388,7 @@ static int led_event_cb(const zmk_event_t *eh) {
     }
 #else
     if (as_zmk_split_peripheral_status_changed(eh)) {
-        bool was = s_unit_connected;
-        s_unit_connected = zmk_split_bt_peripheral_is_connected();
-        if (s_unit_connected && !was) {
-            fire_oneshot(LED_UNIT, COL_BLUE); /* left unit connected */
-        }
+        /* recompute_modes() reads the live split link; just wake the thread. */
         kick();
         return ZMK_EV_EVENT_BUBBLE;
     }
@@ -458,6 +422,8 @@ static int cornix_status_led_init(void) {
     s_bt_index = zmk_ble_active_profile_index();
     s_bt_connected = host_connected();
     s_periph_connected = split_unit_connected();
+#else
+    s_unit_connected = zmk_split_bt_peripheral_is_connected();
 #endif
     kick(); /* render the seeded state once the thread starts */
     return 0;
