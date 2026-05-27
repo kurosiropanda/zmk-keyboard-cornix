@@ -83,8 +83,11 @@ static const struct device *const strip = DEVICE_DT_GET(STRIP_NODE);
 
 /* ---- LED roles (chain index). Swap if physical mapping differs. ---- */
 #if IS_CENTRAL
-#define LED_BT 0   /* left light  : Bluetooth */
-#define LED_AUX 1  /* right light : right-unit link + battery/charge */
+/* Verified on hardware via the diagnostic build: chain index 0 = inner LED,
+ * index 1 = outer LED. Manual maps the left half's outer (左側) light to
+ * Bluetooth and the inner (右側) light to unit-link + battery. */
+#define LED_BT 1   /* outer (左側ライト): Bluetooth */
+#define LED_AUX 0  /* inner (右側ライト): right-unit link + battery/charge */
 #define LED_BATT LED_AUX
 #else
 #define LED_BATT 0 /* left light  : battery/charge */
@@ -116,26 +119,34 @@ static struct led_rgb chan_color(int idx) {
 }
 
 /*
- * Is a host (PC/phone) connected over BLE? On the split central the keyboard
- * is the PERIPHERAL on host links and the CENTRAL on the split link, so a
- * connected peripheral-role LE connection means "host connected". This reads
- * Zephyr's live connection table directly, bypassing zmk_ble_active_profile_*
- * which keys off the bonded profile address and returns false for hosts using
- * resolvable private addresses (RPA) — the reason the BT LED stayed blinking.
+ * Read Zephyr's live connection table directly instead of the
+ * zmk_ble_active_profile_* / zmk_split_peripheral_status APIs, which key off
+ * bonded/profile addresses and proved unreliable here (the BT API returns
+ * false for RPA hosts; the split status event didn't update the cache) — so
+ * both indicator LEDs stayed stuck blinking. On the split central the keyboard
+ * is the PERIPHERAL on the host link and the CENTRAL on the split link, so:
+ *   host connected      = any connected PERIPHERAL-role LE connection
+ *   right unit connected = any connected CENTRAL-role LE connection
  */
-static void host_conn_count_cb(struct bt_conn *conn, void *data) {
+struct role_count {
+    uint8_t role;
+    int n;
+};
+static void role_count_cb(struct bt_conn *conn, void *data) {
+    struct role_count *rc = data;
     struct bt_conn_info info;
-    if (bt_conn_get_info(conn, &info) == 0 && info.role == BT_CONN_ROLE_PERIPHERAL &&
+    if (bt_conn_get_info(conn, &info) == 0 && info.role == rc->role &&
         info.state == BT_CONN_STATE_CONNECTED) {
-        (*(int *)data)++;
+        rc->n++;
     }
 }
-
-static bool host_connected(void) {
-    int n = 0;
-    bt_conn_foreach(BT_CONN_TYPE_LE, host_conn_count_cb, &n);
-    return n > 0;
+static bool any_conn(uint8_t role) {
+    struct role_count rc = {.role = role, .n = 0};
+    bt_conn_foreach(BT_CONN_TYPE_LE, role_count_cb, &rc);
+    return rc.n > 0;
 }
+#define host_connected() any_conn(BT_CONN_ROLE_PERIPHERAL)
+#define split_unit_connected() any_conn(BT_CONN_ROLE_CENTRAL)
 #endif
 
 /* ---- Blink patterns: "ゆっくり点滅" vs "点滅" vs "点灯後消灯" ---- */
@@ -157,7 +168,7 @@ static bool host_connected(void) {
  * Colour families (green/red vs blue/magenta) also reveal the chain index ->
  * physical-side mapping. Set back to 0 for normal operation.
  */
-#define CORNIX_LED_DIAG 1
+#define CORNIX_LED_DIAG 0
 
 enum led_mode { MODE_OFF, MODE_SLOW, MODE_FAST };
 
@@ -220,6 +231,14 @@ __maybe_unused static void recompute_modes(void) {
     s_bt_connected = bt_conn;
     s_bt_index = bt_idx;
     set_mode(LED_BT, bt_conn ? MODE_OFF : MODE_SLOW, chan_color(bt_idx));
+
+    /* Right unit (split) link — also read live; the cached status event left
+     * this stuck "disconnected", blue-blinking the inner LED forever. */
+    bool periph = split_unit_connected();
+    if (periph && !s_periph_connected) {
+        fire_oneshot(LED_AUX, COL_BLUE); /* right unit connected -> light once then off */
+    }
+    s_periph_connected = periph;
 
     /* Right light: right-unit link / charge / battery (one light, by priority). */
     if (!s_periph_connected) {
@@ -377,14 +396,8 @@ static int led_event_cb(const zmk_event_t *eh) {
         kick();
         return ZMK_EV_EVENT_BUBBLE;
     }
-    const struct zmk_split_peripheral_status_changed *ps =
-        as_zmk_split_peripheral_status_changed(eh);
-    if (ps) {
-        bool was = s_periph_connected;
-        s_periph_connected = ps->connected;
-        if (s_periph_connected && !was) {
-            fire_oneshot(LED_AUX, COL_BLUE); /* right unit connected */
-        }
+    if (as_zmk_split_peripheral_status_changed(eh)) {
+        /* recompute_modes() reads the live split link; just wake the thread. */
         kick();
         return ZMK_EV_EVENT_BUBBLE;
     }
@@ -429,6 +442,7 @@ static int cornix_status_led_init(void) {
 #if IS_CENTRAL
     s_bt_index = zmk_ble_active_profile_index();
     s_bt_connected = host_connected();
+    s_periph_connected = split_unit_connected();
 #endif
     kick(); /* render the seeded state once the thread starts */
     return 0;
