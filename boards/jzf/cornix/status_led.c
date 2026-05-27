@@ -159,14 +159,20 @@ static bool any_conn(uint8_t role) {
 #define split_unit_connected() any_conn(BT_CONN_ROLE_CENTRAL)
 #endif
 
-/* ---- Blink patterns: "ゆっくり点滅" vs "点滅" vs "点灯後消灯" ---- */
-#define SLOW_ON_MS 600     /* ゆっくり点滅: searching / link lost / charging */
-#define SLOW_PERIOD_MS 1200
-#define FAST_ON_MS 250     /* 点滅: low battery */
-#define FAST_PERIOD_MS 500
-#define ONESHOT_MS 1000    /* 一度点灯後消灯: connection / charge complete */
-#define FRAME_MS 50        /* animation step (thread only ticks while animating) */
-#define IDLE_POLL_MS 2000  /* central: re-poll BT link when idle (missed events) */
+/* ---- Patterns. Ongoing states "breathe" (smooth fade up/down) over one
+ * period; "一度点灯後消灯" stays a single solid pulse. ---- */
+#define SLOW_PERIOD_MS 1800 /* ゆっくり: searching / link lost / charging */
+#define FAST_PERIOD_MS 700  /* 点滅(速め): low battery */
+#define ONESHOT_MS 1000     /* 一度点灯後消灯: connection / charge complete */
+#define FRAME_MS 50         /* animation step (thread only ticks while animating) */
+#define IDLE_POLL_MS 2000   /* re-poll link/VBUS when idle (some inputs aren't pushed) */
+
+/* Raised-cosine breathing curve, 0->255->0 over 32 steps (perceptually smooth
+ * ease at both ends). Indexed by the phase position within the period. */
+__maybe_unused static const uint8_t breath_lut[32] = {
+    0,   2,   10,  21,  37,  57,  79,  103, 128, 152, 176, 198, 218, 234, 245, 253,
+    255, 253, 245, 234, 218, 198, 176, 152, 128, 103, 79,  57,  37,  21,  10,  2,
+};
 
 /*
  * TEMPORARY diagnostic mode. When 1, both LEDs show SOLID colours encoding the
@@ -286,19 +292,27 @@ __maybe_unused static void recompute_modes(void) {
 #endif
 }
 
+__maybe_unused static struct led_rgb scale_rgb(struct led_rgb c, uint8_t lvl) {
+    struct led_rgb o = {
+        .r = (uint8_t)((uint16_t)c.r * lvl / 255),
+        .g = (uint8_t)((uint16_t)c.g * lvl / 255),
+        .b = (uint8_t)((uint16_t)c.b * lvl / 255),
+    };
+    return o;
+}
+
 /* Colour this LED should show right now; sets *active if it still animates. */
 __maybe_unused static struct led_rgb render_led(const struct led_state *st, int64_t now,
                                                 bool *active) {
     if (now < st->oneshot_until) {
         *active = true;
-        return st->oneshot_color;
+        return st->oneshot_color; /* "点灯後消灯": solid pulse, no breathing */
     }
     if (st->mode != MODE_OFF) {
         *active = true;
         uint32_t period = (st->mode == MODE_SLOW) ? SLOW_PERIOD_MS : FAST_PERIOD_MS;
-        uint32_t on = (st->mode == MODE_SLOW) ? SLOW_ON_MS : FAST_ON_MS;
-        uint32_t phase = (uint32_t)(now % period);
-        return (phase < on) ? st->color : COL_OFF;
+        uint32_t idx = (uint32_t)((now % period) * 32 / period) & 31u;
+        return scale_rgb(st->color, breath_lut[idx]); /* breathe up/down */
     }
     return COL_OFF;
 }
