@@ -147,6 +147,18 @@ static bool host_connected(void) {
 #define FRAME_MS 50        /* animation step (thread only ticks while animating) */
 #define IDLE_POLL_MS 2000  /* central: re-poll BT link when idle (missed events) */
 
+/*
+ * TEMPORARY diagnostic mode. When 1, both LEDs show SOLID colours encoding the
+ * raw internal signals (no blinking), so we can see ground truth on hardware:
+ *   Central (left):  LED0 = host_connected()? GREEN:RED   (BT host link)
+ *                    LED1 = split connected?  BLUE:MAGENTA (right-unit link)
+ *   Peripheral(right): LED0 = central link?   GREEN:RED
+ *                      LED1 = always BLUE (position marker)
+ * Colour families (green/red vs blue/magenta) also reveal the chain index ->
+ * physical-side mapping. Set back to 0 for normal operation.
+ */
+#define CORNIX_LED_DIAG 1
+
 enum led_mode { MODE_OFF, MODE_SLOW, MODE_FAST };
 
 struct led_state {
@@ -192,7 +204,7 @@ static void fire_oneshot(int led, struct led_rgb color) {
 }
 
 /* Derive each LED's ongoing pattern from the tracked state (manual mapping). */
-static void recompute_modes(void) {
+__maybe_unused static void recompute_modes(void) {
 #if IS_CENTRAL
     /*
      * Left light: Bluetooth. Use the live Zephyr connection table (see
@@ -241,7 +253,8 @@ static void recompute_modes(void) {
 }
 
 /* Colour this LED should show right now; sets *active if it still animates. */
-static struct led_rgb render_led(const struct led_state *st, int64_t now, bool *active) {
+__maybe_unused static struct led_rgb render_led(const struct led_state *st, int64_t now,
+                                                bool *active) {
     if (now < st->oneshot_until) {
         *active = true;
         return st->oneshot_color;
@@ -258,6 +271,31 @@ static struct led_rgb render_led(const struct led_state *st, int64_t now, bool *
 
 /* Render one frame; returns true while something still needs animating. */
 static bool render_frame(void) {
+#if CORNIX_LED_DIAG
+    const struct led_rgb GRN = {.r = 0, .g = SCALE(255), .b = 0};
+    const struct led_rgb RED = {.r = SCALE(255), .g = 0, .b = 0};
+    const struct led_rgb BLU = {.r = 0, .g = 0, .b = SCALE(255)};
+    const struct led_rgb MAG = {.r = SCALE(255), .g = 0, .b = SCALE(255)};
+    struct led_rgb d[2];
+#if IS_CENTRAL
+    d[0] = host_connected() ? GRN : RED;
+    d[1] = s_periph_connected ? BLU : MAG;
+#else
+    d[0] = s_unit_connected ? GRN : RED;
+    d[1] = BLU;
+#endif
+    bool ch = false;
+    for (size_t i = 0; i < STRIP_NPIX && i < 2; i++) {
+        if (!rgb_eq(d[i], shown[i])) {
+            shown[i] = d[i];
+            ch = true;
+        }
+    }
+    if (ch && device_is_ready(strip)) {
+        led_strip_update_rgb(strip, shown, STRIP_NPIX);
+    }
+    return true; /* keep polling so signal changes show up */
+#else
     recompute_modes();
     int64_t now = k_uptime_get();
     bool active = false;
@@ -274,6 +312,7 @@ static bool render_frame(void) {
         led_strip_update_rgb(strip, shown, STRIP_NPIX);
     }
     return active;
+#endif /* CORNIX_LED_DIAG */
 }
 
 static void led_thread(void *a, void *b, void *c) {
