@@ -11,6 +11,7 @@ on:
     paths:
       - "config/cornix.keymap"
       - "config/cornix.json"
+      - "draw/config-cornix.yaml"
       - ".github/workflows/draw.yml"
 
 permissions:
@@ -37,8 +38,8 @@ jobs:
           # includes/*.h は keymap ファイル相対で解決される。
           # zmk-helpers/helper.h や <dt-bindings/...> 等の未発見インクルードは
           # pcpp が pass-through するため west モジュールの取得は不要。
-          keymap parse -z config/cornix.keymap > draw/cornix.yaml
-          keymap draw draw/cornix.yaml -j config/cornix.json -l LAYOUT_50 > draw/cornix.svg
+          keymap -c draw/config-cornix.yaml parse -z config/cornix.keymap > draw/cornix.yaml
+          keymap -c draw/config-cornix.yaml draw draw/cornix.yaml -j config/cornix.json -l LAYOUT_50 > draw/cornix.svg
 
       - name: Commit updated keymap image
         uses: stefanzweifel/git-auto-commit-action@v7
