@@ -192,7 +192,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(784, 56)" class="key keypos-11">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">MINUS</text>
+<text x="0" y="-4" class="key tap">-</text>
 </g>
 <g transform="translate(28, 112)" class="key keypos-12">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -317,12 +317,12 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(616, 140)" class="key keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">COMMA</text>
+<text x="0" y="-4" class="key tap">,</text>
 </g>
 <g transform="translate(672, 158)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">DOT</text>
+<text x="0" y="-4" class="key tap">.</text>
 </g>
 <g transform="translate(728, 171)" class="key keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -332,7 +332,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(784, 171)" class="key keypos-37">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">FSLH</text>
+<text x="0" y="-4" class="key tap">/</text>
 </g>
 <g transform="translate(28, 227)" class="key keypos-38">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -368,7 +368,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(345, 257) rotate(23.0)" class="key keypos-43">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">SPACE</text>
+<text x="0" y="-4" class="key tap">Space</text>
 <a href="#Navi">
 <text x="0" y="24" class="key hold layer-activator">Navi</text>
 </a></g>
@@ -542,9 +542,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(84, 171)" class="key keypos-25">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">
-<tspan x="0" dy="-0.6em">Sft+</tspan><tspan x="0" dy="1.2em">MINUS</tspan>
-</text>
+<text x="0" y="-4" class="key tap">=</text>
 </g>
 <g transform="translate(140, 154)" class="key keypos-26">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -560,7 +558,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(252, 154)" class="key keypos-28">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+@</text>
+<text x="0" y="-4" class="key tap">`</text>
 </g>
 <g transform="translate(308, 171)" class="key keypos-29">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -588,7 +586,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(616, 140)" class="key keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">FSLH</text>
+<text x="0" y="-4" class="key tap">/</text>
 </g>
 <g transform="translate(672, 158)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -751,24 +749,22 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(504, 112)" class="key keypos-18">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">BSPC</text>
+<text x="0" y="-4" class="key tap">⌫</text>
 </g>
 <g transform="translate(560, 101)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">MINUS</text>
+<text x="0" y="-4" class="key tap">-</text>
 </g>
 <g transform="translate(616, 84)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">
-<tspan x="0" dy="-0.6em">Sft+</tspan><tspan x="0" dy="1.2em">MINUS</tspan>
-</text>
+<text x="0" y="-4" class="key tap">=</text>
 </g>
 <g transform="translate(672, 102)" class="key keypos-21">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+;</text>
+<text x="0" y="-4" class="key tap">+</text>
 </g>
 <g transform="translate(728, 112)" class="key keypos-22">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -1919,7 +1915,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(616, 28)" class="key keypos-8">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+:</text>
+<text x="0" y="-4" class="key tap">*</text>
 </g>
 <g transform="translate(672, 46)" class="key keypos-9">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -1934,7 +1930,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(784, 56)" class="key keypos-11">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+¥</text>
+<text x="0" y="-4" class="key tap">|</text>
 </g>
 <g transform="translate(28, 112)" class="key keypos-12">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -1967,24 +1963,22 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(504, 112)" class="key keypos-18">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">
-<tspan x="0" dy="-0.6em">Sft+</tspan><tspan x="0" dy="1.2em">MINUS</tspan>
-</text>
+<text x="0" y="-4" class="key tap">=</text>
 </g>
 <g transform="translate(560, 101)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+\\</text>
+<text x="0" y="-4" class="key tap">_</text>
 </g>
 <g transform="translate(616, 84)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">MINUS</text>
+<text x="0" y="-4" class="key tap">-</text>
 </g>
 <g transform="translate(672, 102)" class="key keypos-21">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+;</text>
+<text x="0" y="-4" class="key tap">+</text>
 </g>
 <g transform="translate(728, 112)" class="key keypos-22">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -2017,7 +2011,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(252, 154)" class="key keypos-28">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+¥</text>
+<text x="0" y="-4" class="key tap">|</text>
 </g>
 <g transform="translate(308, 171)" class="key keypos-29">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -2037,24 +2031,22 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(504, 171)" class="key keypos-32">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">FSLH</text>
+<text x="0" y="-4" class="key tap">/</text>
 </g>
 <g transform="translate(560, 157)" class="key keypos-33">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">
-<tspan x="0" dy="-0.6em">Sft+</tspan><tspan x="0" dy="1.2em">FSLH</tspan>
-</text>
+<text x="0" y="-4" class="key tap">?</text>
 </g>
 <g transform="translate(616, 140)" class="key keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+@</text>
+<text x="0" y="-4" class="key tap">`</text>
 </g>
 <g transform="translate(672, 158)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+^</text>
+<text x="0" y="-4" class="key tap">~</text>
 </g>
 <g transform="translate(728, 171)" class="key keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
@@ -2094,7 +2086,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(467, 256) rotate(-23.0)" class="key keypos-44">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+^</text>
+<text x="0" y="-4" class="key tap">~</text>
 </g>
 <g transform="translate(526, 236) rotate(-11.93)" class="key trans keypos-45">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans side"/>
@@ -2104,7 +2096,7 @@ text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, mo
 <g transform="translate(588, 231)" class="key keypos-46">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>
 <rect rx="4" ry="4" x="-20" y="-24" width="40" height="40" class="key"/>
-<text x="0" y="-4" class="key tap">Sft+@</text>
+<text x="0" y="-4" class="key tap">`</text>
 </g>
 <g transform="translate(672, 217)" class="key keypos-47">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key side"/>

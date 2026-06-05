@@ -12,7 +12,7 @@ layers:
   - I
   - O
   - P
-  - MINUS
+  - '-'
   - ⇪
   - {t: A, h: ⌘}
   - {t: S, h: ⌥}
@@ -35,16 +35,16 @@ layers:
   - 💤
   - N
   - M
-  - COMMA
-  - DOT
+  - ','
+  - .
   - ↑
-  - FSLH
+  - /
   - Ctrl
   - ⌘ Cmd
   - Alt
   - {t: Esc, h: NumPad}
   - {t: 英数, h: Symbol}
-  - {t: SPACE, h: Navi}
+  - {t: Space, h: Navi}
   - {t: ↵, h: Adjust}
   - {t: かな, h: Mix}
   - {t: ⌫, s: ⌦}
@@ -77,16 +77,16 @@ layers:
   - '0'
   - ''
   - {t: ▽, type: trans}
-  - Sft+MINUS
+  - '='
   - {t: ':', s: ;}
   - '&'
-  - Sft+@
+  - '`'
   - ^
   - ''
   - ''
   - \\
   - ¥
-  - FSLH
+  - /
   - '@'
   - {t: '?', s: '!'}
   - ''
@@ -121,10 +121,10 @@ layers:
   - '3'
   - '4'
   - '5'
-  - BSPC
-  - MINUS
-  - Sft+MINUS
-  - Sft+;
+  - ⌫
+  - '-'
+  - '='
+  - +
   - '"'
   - F12
   - {t: ▽, type: trans}
@@ -366,34 +366,34 @@ layers:
   - '%'
   - ^
   - '&'
-  - 'Sft+:'
+  - '*'
   - (
   - )
-  - Sft+¥
+  - '|'
   - ''
   - ''
   - '['
   - ']'
   - Sft+[
   - Sft+]
-  - Sft+MINUS
-  - Sft+\\
-  - MINUS
-  - Sft+;
+  - '='
+  - _
+  - '-'
+  - +
   - '"'
   - ''''
   - ''
   - ''
   - ']'
   - )
-  - Sft+¥
+  - '|'
   - \\
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - FSLH
-  - Sft+FSLH
-  - Sft+@
-  - Sft+^
+  - /
+  - '?'
+  - '`'
+  - '~'
   - ''''
   - ''
   - ''
@@ -402,9 +402,9 @@ layers:
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - Sft+^
+  - '~'
   - {t: ▽, type: trans}
-  - Sft+@
+  - '`'
   - ''
   - ''
   - ''
