@@ -298,14 +298,14 @@
             // ------------------------------------------------------------------------------------------------------------
             // |     |  '" |  #* |  $% |  -+ |     |                |     |  <> |  () |  [] |  {} |     |
             // |     |  1  |  2  |  3  |  4  |  5  |                |  6  |  7  |  8  |  9  |  0  |     |
-            // |     |  =  |  :; |  &  |  `  |  ^  |      | |       |  \  |  ¥  |  /  |  @  |  ?! |     |
+            // | SFT |  =  |  :; |  &  |  `  |  ^  |      | |       |  \  |  ¥  |  /  |  @  |  ?! |     |
             // |     |     |     |     |     |     |      | |       |     |     |     |     |     |     |
 
             bindings = <
-&none  &mod_shift_quote  &mod_shift_hash   &mod_shift_doller  &mod_shift_minus  &none                       &none         &mod_shift_than  &mod_shift_perenthesis  &mod_shift_bracket  &mod_shift_brace     &none
-&none  &kp NUMBER_1      &kp NUMBER_2      &kp NUMBER_3       &kp NUMBER_4      &kp NUMBER_5                &kp NUMBER_6  &kp NUMBER_7     &kp NUMBER_8            &kp NUMBER_9        &kp NUMBER_0         &none
-&none  &kp JP_EQL        &mod_shift_colon  &kp JP_AMPR        &kp JP_GRV        &kp JP_CIRC   &none  &none  &kp JP_BSLS   &kp JP_YEN       &kp JP_SLSH             &kp JP_AT           &mod_shift_question  &none
-&none  &none             &none             &none              &none             &none                       &none         &none            &none                   &none               &none                &none
+&none   &mod_shift_quote  &mod_shift_hash   &mod_shift_doller  &mod_shift_minus  &none                       &none         &mod_shift_than  &mod_shift_perenthesis  &mod_shift_bracket  &mod_shift_brace     &none
+&none   &kp NUMBER_1      &kp NUMBER_2      &kp NUMBER_3       &kp NUMBER_4      &kp NUMBER_5                &kp NUMBER_6  &kp NUMBER_7     &kp NUMBER_8            &kp NUMBER_9        &kp NUMBER_0         &none
+&trans  &kp JP_EQL        &mod_shift_colon  &kp JP_AMPR        &kp JP_GRV        &kp JP_CIRC   &none  &none  &kp JP_BSLS   &kp JP_YEN       &kp JP_SLSH             &kp JP_AT           &mod_shift_question  &none
+&none   &none             &none             &none              &none             &none                       &none         &none            &none                   &none               &none                &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -352,10 +352,10 @@
         Navi_layer {
             display-name = "Navi";
             bindings = <
-&none  &none  &none           &mmv MOVE_UP    &kp PAGE_UP      &kp PAGE_DOWN                   &mkp MB1  &mkp MB3  &mkp MB2  &msc SCRL_UP  &msc SCRL_DOWN  &none
-&none  &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_UP                    &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT     &none           &none
-&none  &none  &none           &none           &none            &msc SCRL_DOWN  &trans  &trans  &trans    &trans    &none     &none         &none           &none
-&none  &none  &none           &mo DEBUG           &trans           &trans                          &none     &none     &trans    &none         &none           &none
+&none   &none  &none           &mmv MOVE_UP    &kp PAGE_UP      &kp PAGE_DOWN                   &mkp MB1  &mkp MB3  &mkp MB2  &msc SCRL_UP  &msc SCRL_DOWN  &none
+&none   &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_UP                    &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT     &none           &none
+&trans  &none  &none           &none           &none            &msc SCRL_DOWN  &trans  &trans  &trans    &trans    &none     &none         &none           &none
+&none   &none  &none           &mo DEBUG        &trans           &trans                          &none     &none     &trans    &none         &none           &none
             >;
         };
 
