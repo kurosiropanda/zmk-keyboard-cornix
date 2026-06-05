@@ -151,7 +151,6 @@
 
         mod_shift_backspace: mod_shift_backspace {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_BACKSPACE";
             bindings = <&kp BACKSPACE>, <&kp DELETE>;
 
             #binding-cells = <0>;
@@ -160,7 +159,6 @@
 
         mod_shift_quote: mod_shift_quote {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_QUOTE";
             bindings = <&kp JP_QUOT>, <&kp JP_DQUO>;
 
             #binding-cells = <0>;
@@ -169,7 +167,6 @@
 
         mod_shift_hash: mod_shift_hash {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_HASH";
             bindings = <&kp JP_HASH>, <&kp JP_ASTR>;
 
             #binding-cells = <0>;
@@ -178,7 +175,6 @@
 
         mod_shift_doller: mod_shift_doller {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_DOLLER";
             bindings = <&kp JP_DLR>, <&kp JP_PERC>;
 
             #binding-cells = <0>;
@@ -187,7 +183,6 @@
 
         mod_shift_than: mod_shift_than {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_THAN";
             bindings = <&kp JP_LABK>, <&kp JP_RABK>;
 
             #binding-cells = <0>;
@@ -196,7 +191,6 @@
 
         mod_shift_perenthesis: mod_shift_perenthesis {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_PERENTHESIS";
             bindings = <&kp JP_LPRN>, <&kp JP_RPRN>;
 
             #binding-cells = <0>;
@@ -205,7 +199,6 @@
 
         mod_shift_bracket: mod_shift_bracket {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_BRACKET";
             bindings = <&kp JP_LBRC>, <&kp JP_RBRC>;
 
             #binding-cells = <0>;
@@ -214,7 +207,6 @@
 
         mod_shift_brace: mod_shift_brace {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_BRACE";
             bindings = <&kp JP_LCBR>, <&kp JP_RCBR>;
 
             #binding-cells = <0>;
@@ -223,7 +215,6 @@
 
         mod_shift_colon: mod_shift_colon {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_COLON";
             bindings = <&kp JP_COLN>, <&kp JP_SCLN>;
 
             #binding-cells = <0>;
@@ -232,7 +223,6 @@
 
         mod_shift_minus: mod_shift_minus {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_MINUS";
             bindings = <&kp JP_MINS>, <&kp JP_PLUS>;
 
             #binding-cells = <0>;
@@ -241,7 +231,6 @@
 
         mod_shift_pipe: mod_shift_pipe {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_PIPE";
             bindings = <&kp JP_PIPE>, <&kp JP_UNDS>;
 
             #binding-cells = <0>;
@@ -250,7 +239,6 @@
 
         mod_shift_question: mod_shift_question {
             compatible = "zmk,behavior-mod-morph";
-            label = "MOD_SHIFT_QUESTION";
             bindings = <&kp JP_QUES>, <&kp JP_EXLM>;
 
             #binding-cells = <0>;
