@@ -26,26 +26,23 @@ include:
   #   shield: cornix_dongle_adapter dongle_screen
   #   snippet: studio-rpc-usb-uart
   #   artifact-name: cornix_dongle_zds_nano
-  - board: cornix_left
-  #  shield: cornix_indicator
-    artifact-name: cornix_left_default_nosd
+  #- board: cornix_left
+  #  artifact-name: cornix_left_default_nosd
 
   #- board: cornix_ph_left
-  #  # shield: cornix_indicator
   #  artifact-name: cornix_left_for_dongle_nosd
 
-  - board: cornix_right
-  #  shield: cornix_indicator
-    artifact-name: cornix_right_nosd
+  #- board: cornix_right
+  #  artifact-name: cornix_right_default_nosd
 
-  # WS2812 status indicator variants (manual-style scheme; higher power draw)
+  # WS2812 status indicator variants (main builds)
   - board: cornix_left
     shield: cornix_indicator
-    artifact-name: cornix_left_indicator_nosd
+    artifact-name: cornix_left_nosd
 
   - board: cornix_right
     shield: cornix_indicator
-    artifact-name: cornix_right_indicator_nosd
+    artifact-name: cornix_right_nosd
 
   - board: cornix_right
     shield: settings_reset
