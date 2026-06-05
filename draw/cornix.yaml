@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: cornix}
 layers:
   Base:
-  - TAB
+  - ⇥ Tab
   - Q
   - W
   - E
@@ -12,57 +12,57 @@ layers:
   - I
   - O
   - P
-  - '-'
-  - CAPSLOCK
-  - {t: A, h: LGUI}
-  - {t: S, h: LALT}
-  - {t: D, h: LCTRL}
-  - {t: F, h: LSHFT}
+  - MINUS
+  - ⇪
+  - {t: A, h: ⌘}
+  - {t: S, h: ⌥}
+  - {t: D, h: Ctrl}
+  - {t: F, h: ⇧}
   - G
   - H
-  - {t: J, h: RSHFT}
-  - {t: K, h: RCTRL}
-  - {t: L, h: RALT}
-  - {t: INT YEN, h: RGUI}
-  - Sft+2
-  - LEFT SHIFT
+  - {t: J, h: ⇧}
+  - {t: K, h: Ctrl}
+  - {t: L, h: ⌥}
+  - {t: ¥, h: ⌘}
+  - '"'
+  - ⇧ Shift
   - Z
   - X
   - C
   - V
   - B
-  - MUTE
-  - SCREENSAVER
+  - 🔇
+  - 💤
   - N
   - M
-  - ','
-  - .
-  - UP ARROW
-  - /
-  - LEFT CONTROL
-  - LEFT COMMAND
-  - LEFT ALT
-  - {t: ESCAPE, h: NumPad}
-  - {t: LANGUAGE 2, h: Symbol}
+  - COMMA
+  - DOT
+  - ↑
+  - FSLH
+  - Ctrl
+  - ⌘ Cmd
+  - Alt
+  - {t: Esc, h: NumPad}
+  - {t: 英数, h: Symbol}
   - {t: SPACE, h: Navi}
-  - {t: ENTER, h: Adjust}
-  - {t: LANGUAGE 1, h: Mix}
-  - {t: BACKSPACE, s: DELETE}
-  - LEFT ARROW
-  - DOWN ARROW
-  - RIGHT ARROW
+  - {t: ↵, h: Adjust}
+  - {t: かな, h: Mix}
+  - {t: ⌫, s: ⌦}
+  - ←
+  - ↓
+  - →
   Symbol:
   - ''
-  - {t: Sft+7, s: Sft+2}
-  - {t: Sft+3, s: Sft+'}
-  - {t: Sft+4, s: Sft+5}
-  - {t: '-', s: Sft+;}
+  - {t: '''', s: '"'}
+  - {t: '#', s: '*'}
+  - {t: $, s: '%'}
+  - {t: '-', s: +}
   - ''
   - ''
-  - {t: 'Sft+,', s: Sft+.}
-  - {t: Sft+8, s: Sft+9}
-  - {t: ']', s: \}
-  - {t: 'Sft+]', s: Sft+\}
+  - {t: <, s: '>'}
+  - {t: (, s: )}
+  - {t: '[', s: ']'}
+  - {t: '{', s: '}'}
   - ''
   - ''
   - '1'
@@ -77,18 +77,18 @@ layers:
   - '0'
   - ''
   - {t: ▽, type: trans}
-  - Sft+-
-  - {t: '''', s: ;}
-  - Sft+6
-  - Sft+[
-  - '='
+  - Sft+MINUS
+  - {t: ':', s: ;}
+  - '&'
+  - Sft+@
+  - ^
   - ''
   - ''
-  - INT1
-  - INT YEN
-  - /
-  - '['
-  - {t: Sft+/, s: Sft+1}
+  - \\
+  - ¥
+  - FSLH
+  - '@'
+  - {t: '?', s: '!'}
   - ''
   - ''
   - ''
@@ -122,10 +122,10 @@ layers:
   - '4'
   - '5'
   - BSPC
-  - '-'
-  - Sft+-
+  - MINUS
+  - Sft+MINUS
   - Sft+;
-  - Sft+2
+  - '"'
   - F12
   - {t: ▽, type: trans}
   - '6'
@@ -135,10 +135,10 @@ layers:
   - '0'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - TAB
+  - ⇥ Tab
   - INS
-  - HOME
-  - END
+  - Home
+  - End
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ''
@@ -146,7 +146,7 @@ layers:
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - BACKSPACE
+  - ⌫
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
@@ -166,7 +166,7 @@ layers:
   - ''
   - ''
   - ''
-  - '&studio_unlock'
+  - {t: Studio, type: custom}
   - {t: BT DISC, h: '0'}
   - {t: BT DISC, h: '1'}
   - {t: BT DISC, h: '2'}
@@ -208,21 +208,21 @@ layers:
   - ''
   - ''
   - ''
-  - '&mmv MOVE_UP'
-  - PAGE UP
-  - PAGE DOWN
-  - '&mkp MB1'
-  - '&mkp MB3'
-  - '&mkp MB2'
-  - '&msc SCRL_UP'
-  - '&msc SCRL_DOWN'
+  - {t: 🖱↑, type: custom}
+  - PgUp
+  - PgDn
+  - {t: 🖱L, type: custom}
+  - {t: 🖱M, type: custom}
+  - {t: 🖱R, type: custom}
+  - {t: 🖱⇑, type: custom}
+  - {t: 🖱⇓, type: custom}
   - ''
   - ''
   - ''
-  - '&mmv MOVE_LEFT'
-  - '&mmv MOVE_DOWN'
-  - '&mmv MOVE_RIGHT'
-  - '&msc SCRL_UP'
+  - {t: 🖱←, type: custom}
+  - {t: 🖱↓, type: custom}
+  - {t: 🖱→, type: custom}
+  - {t: 🖱⇑, type: custom}
   - LEFT
   - DOWN
   - UP
@@ -234,7 +234,7 @@ layers:
   - ''
   - ''
   - ''
-  - '&msc SCRL_DOWN'
+  - {t: 🖱⇓, type: custom}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -336,10 +336,10 @@ layers:
   - ''
   - ''
   - ''
-  - '&bootloader'
+  - {t: Boot, type: custom}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - '&bootloader'
+  - {t: Boot, type: custom}
   - ''
   - ''
   - ''
@@ -359,42 +359,42 @@ layers:
   - ''
   Symbols:
   - ''
-  - Sft+1
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - ^
+  - '&'
+  - 'Sft+:'
+  - (
+  - )
+  - Sft+¥
+  - ''
+  - ''
   - '['
-  - Sft+3
-  - Sft+4
-  - Sft+5
-  - '='
-  - Sft+6
-  - Sft+'
-  - Sft+8
-  - Sft+9
-  - Sft+INT YEN
+  - ']'
+  - Sft+[
+  - Sft+]
+  - Sft+MINUS
+  - Sft+\\
+  - MINUS
+  - Sft+;
+  - '"'
+  - ''''
   - ''
   - ''
   - ']'
-  - \
-  - Sft+]
-  - Sft+\
-  - Sft+-
-  - Sft+INT1
-  - '-'
-  - Sft+;
-  - Sft+2
-  - Sft+7
-  - ''
-  - ''
-  - \
-  - Sft+9
-  - Sft+INT YEN
-  - INT1
+  - )
+  - Sft+¥
+  - \\
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - /
-  - Sft+/
-  - Sft+[
-  - Sft+=
-  - Sft+7
+  - FSLH
+  - Sft+FSLH
+  - Sft+@
+  - Sft+^
+  - ''''
   - ''
   - ''
   - ''
@@ -402,9 +402,9 @@ layers:
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - Sft+=
+  - Sft+^
   - {t: ▽, type: trans}
-  - Sft+[
+  - Sft+@
   - ''
   - ''
   - ''
