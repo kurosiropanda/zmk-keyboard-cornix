@@ -25,6 +25,16 @@ CONFIG_FLASH_MAP=y
 CONFIG_CLOCK_CONTROL_NRF=y
 CONFIG_CLOCK_CONTROL_NRF_K32SRC_RC=y
 
+# --- 省電力 ---
+# nRF52840 内蔵 DC/DC(降圧)レギュレータを有効化。既定の LDO より効率が高く、
+# 特に無線送信時の電流を削減できる(E73 モジュールに DC/DC 用インダクタ実装が前提)。
+CONFIG_BOARD_ENABLE_DCDC=y
+# アイドル継続でディープスリープ(system-OFF, 数µA)へ移行。kscan0 を起床ソースとして
+# キー入力で復帰する(cornix.dtsi の wakeup-sources / wakeup-source 参照)。
+CONFIG_ZMK_SLEEP=y
+# 15分(=900000ms)無操作でディープスリープへ。
+CONFIG_ZMK_IDLE_SLEEP_TIMEOUT=900000
+
 # e73 config end
 
 CONFIG_ZMK_KEYBOARD_NAME="Cornix"
