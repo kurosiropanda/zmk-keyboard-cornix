@@ -76,7 +76,7 @@ layers:
   - '9'
   - '0'
   - ''
-  - ''
+  - {t: ▽, type: trans}
   - Sft+-
   - {t: '''', s: ;}
   - Sft+6
@@ -229,7 +229,7 @@ layers:
   - RIGHT
   - ''
   - ''
-  - ''
+  - {t: ▽, type: trans}
   - ''
   - ''
   - ''
