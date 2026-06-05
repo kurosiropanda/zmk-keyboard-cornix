@@ -22,7 +22,24 @@ parse_config:
     INT1: '\\'
     INT_YEN: "¥"
     EQUAL: "^"
-    # Shifted JIS symbols
+    # Common keys that keymap-drawer leaves as raw names
+    MINUS: "-"
+    COMMA: ","
+    DOT: "."
+    FSLH: "/"
+    SPACE: Space
+    BSPC: "⌫"
+    # Shifted JIS symbols (LS → actual character)
+    LS(MINUS): "="
+    LS(EQUAL): "~"
+    LS(LBKT): "`"
+    LS(SEMI): "+"
+    LS(SQT): "*"
+    LS(INT1): "_"
+    LS(INT_YEN): "|"
+    LS(FSLH): "?"
+    LS(COMMA): "<"
+    LS(DOT): ">"
     LS(N1): "!"
     LS(N2): '"'
     LS(N3): "#"
