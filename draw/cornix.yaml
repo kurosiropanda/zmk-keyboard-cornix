@@ -136,7 +136,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ⇥ Tab
-  - INS
+  - Ins
   - Home
   - End
   - {t: ▽, type: trans}
@@ -223,10 +223,10 @@ layers:
   - {t: 🖱↓, type: custom}
   - {t: 🖱→, type: custom}
   - {t: 🖱⇑, type: custom}
-  - LEFT
-  - DOWN
-  - UP
-  - RIGHT
+  - ←
+  - ↓
+  - ↑
+  - →
   - ''
   - ''
   - {t: ▽, type: trans}
@@ -262,11 +262,11 @@ layers:
   - ''
   - ''
   - ''
-  - KP 7
-  - KP 8
-  - KP 9
-  - KP MINUS
-  - KP MULTIPLY
+  - '7'
+  - '8'
+  - '9'
+  - '[-]'
+  - '[×]'
   - ''
   - ''
   - ''
@@ -276,9 +276,9 @@ layers:
   - ''
   - KP 4
   - KP 5
-  - KP 6
-  - KP PLUS
-  - KP DIVIDE
+  - '6'
+  - '[+]'
+  - '[÷]'
   - ''
   - ''
   - ''
@@ -290,7 +290,7 @@ layers:
   - {t: ▽, type: trans}
   - KP 1
   - KP 2
-  - KP 3
+  - '3'
   - ''
   - ''
   - ''
@@ -300,9 +300,9 @@ layers:
   - {type: held}
   - ''
   - Debug
-  - KP 0
-  - KP DOT
-  - KP ENTER
+  - '0'
+  - '[.]'
+  - '[↵]'
   - ''
   - ''
   - ''
@@ -374,8 +374,8 @@ layers:
   - ''
   - '['
   - ']'
-  - Sft+[
-  - Sft+]
+  - '{'
+  - '}'
   - '='
   - _
   - '-'
