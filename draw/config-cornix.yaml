@@ -1,0 +1,100 @@
+draw_config:
+  draw_key_sides: true
+  key_w: 60
+  key_h: 56
+  key_rx: 6
+  key_ry: 6
+  dark_mode: false
+  svg_extra_style: |
+    rect.key { fill: #f0f4f8; }
+    rect.held { fill: #fde8e8; }
+    rect.key.type-held { fill: #fde8e8; }
+    text { font-family: "Segoe UI Emoji", "Noto Emoji", SFMono-Regular, Consolas, monospace; }
+
+parse_config:
+  zmk_keycode_map:
+    # JIS layout: key positions differ from US
+    LBKT: "@"
+    RBKT: "["
+    BSLH: "]"
+    SQT: ":"
+    SEMI: ";"
+    INT1: '\\'
+    INT_YEN: "¥"
+    EQUAL: "^"
+    # Shifted JIS symbols
+    LS(N1): "!"
+    LS(N2): '"'
+    LS(N3): "#"
+    LS(N4): "$"
+    LS(N5): "%"
+    LS(N6): "&"
+    LS(N7): "'"
+    LS(N8): "("
+    LS(N9): ")"
+    # Arrow keys with symbols
+    UP_ARROW: "↑"
+    DOWN_ARROW: "↓"
+    LEFT_ARROW: "←"
+    RIGHT_ARROW: "→"
+    # Special keys
+    BACKSPACE: "⌫"
+    DELETE: "⌦"
+    ENTER: "↵"
+    TAB: "⇥ Tab"
+    CAPSLOCK: "⇪"
+    ESCAPE: "Esc"
+    LEFT_SHIFT: "⇧ Shift"
+    LEFT_CONTROL: "Ctrl"
+    LEFT_ALT: "Alt"
+    LEFT_COMMAND: "⌘ Cmd"
+    RIGHT_SHIFT: "⇧"
+    RIGHT_CONTROL: "Ctrl"
+    RIGHT_ALT: "Alt"
+    RIGHT_GUI: "⌘"
+    PAGE_UP: "PgUp"
+    PAGE_DOWN: "PgDn"
+    HOME: "Home"
+    END: "End"
+    INSERT: "Ins"
+    # Media
+    C_MUTE: "🔇"
+    K_SCREENSAVER: "💤"
+    C_VOL_UP: "🔊"
+    C_VOL_DN: "🔉"
+    # Language (Japanese IME)
+    LANGUAGE_1: "かな"
+    LANGUAGE_2: "英数"
+    # Modifiers (for homerow display)
+    LGUI: "⌘"
+    LALT: "⌥"
+    LCTRL: "Ctrl"
+    LSHFT: "⇧"
+    RGUI: "⌘"
+    RALT: "⌥"
+    RCTRL: "Ctrl"
+    RSHFT: "⇧"
+  raw_binding_map:
+    "&mod_shift_backspace": {t: "⌫", s: "⌦"}
+    "&mod_shift_quote": {t: "'", s: '"'}
+    "&mod_shift_hash": {t: "#", s: "*"}
+    "&mod_shift_doller": {t: "$", s: "%"}
+    "&mod_shift_than": {t: "<", s: ">"}
+    "&mod_shift_perenthesis": {t: "(", s: ")"}
+    "&mod_shift_bracket": {t: "[", s: "]"}
+    "&mod_shift_brace": {t: "{", s: "}"}
+    "&mod_shift_colon": {t: ":", s: ";"}
+    "&mod_shift_minus": {t: "-", s: "+"}
+    "&mod_shift_pipe": {t: "|", s: "_"}
+    "&mod_shift_question": {t: "?", s: "!"}
+    "&mmv MOVE_UP": {t: "🖱↑", type: custom}
+    "&mmv MOVE_DOWN": {t: "🖱↓", type: custom}
+    "&mmv MOVE_LEFT": {t: "🖱←", type: custom}
+    "&mmv MOVE_RIGHT": {t: "🖱→", type: custom}
+    "&mkp MB1": {t: "🖱L", type: custom}
+    "&mkp MB2": {t: "🖱R", type: custom}
+    "&mkp MB3": {t: "🖱M", type: custom}
+    "&msc SCRL_UP": {t: "🖱⇑", type: custom}
+    "&msc SCRL_DOWN": {t: "🖱⇓", type: custom}
+    "&bootloader": {t: "Boot", type: custom}
+    "&studio_unlock": {t: "Studio", type: custom}

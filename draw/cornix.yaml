@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: cornix}
 layers:
   Base:
-  - TAB
+  - "⇥ Tab"
   - Q
   - W
   - E
@@ -13,56 +13,57 @@ layers:
   - O
   - P
   - '-'
-  - CAPSLOCK
-  - {t: A, h: LGUI}
-  - {t: S, h: LALT}
-  - {t: D, h: LCTRL}
-  - {t: F, h: LSHFT}
+  - "⇪"
+  - {t: A, h: "⌘"}
+  - {t: S, h: "⌥"}
+  - {t: D, h: Ctrl}
+  - {t: F, h: "⇧"}
   - G
   - H
-  - {t: J, h: RSHFT}
-  - {t: K, h: RCTRL}
-  - {t: L, h: RALT}
-  - {t: INT YEN, h: RGUI}
-  - Sft+2
-  - LEFT SHIFT
+  - {t: J, h: "⇧"}
+  - {t: K, h: Ctrl}
+  - {t: L, h: "⌥"}
+  - {t: "¥", h: "⌘"}
+  - '"'
+  - "⇧ Shift"
   - Z
   - X
   - C
   - V
   - B
-  - MUTE
-  - SCREENSAVER
+  - "🔇"
+  - "💤"
   - N
   - M
   - ','
   - .
-  - UP ARROW
+  - "↑"
   - /
-  - LEFT CONTROL
-  - LEFT COMMAND
-  - LEFT ALT
-  - {t: ESCAPE, h: NumPad}
-  - {t: LANGUAGE 2, h: Symbol}
-  - {t: SPACE, h: Navi}
-  - {t: ENTER, h: Adjust}
-  - {t: LANGUAGE 1, h: Mix}
-  - {t: BACKSPACE, s: DELETE}
-  - LEFT ARROW
-  - DOWN ARROW
-  - RIGHT ARROW
+  - Ctrl
+  - "⌘"
+  - Alt
+  - {t: Esc, h: NumPad}
+  - {t: "英数", h: Symbol}
+  - {t: Space, h: Navi}
+  - {t: "↵", h: Adjust}
+  - {t: "かな", h: Mix}
+  - {t: "⌫", s: "⌦"}
+  - "←"
+  - "↓"
+  - "→"
+
   Symbol:
   - ''
-  - {t: Sft+7, s: Sft+2}
-  - {t: Sft+3, s: Sft+'}
-  - {t: Sft+4, s: Sft+5}
-  - {t: '-', s: Sft+;}
+  - {t: "'", s: '"'}
+  - {t: "#", s: "*"}
+  - {t: "$", s: "%"}
+  - {t: "-", s: "+"}
   - ''
   - ''
-  - {t: 'Sft+,', s: Sft+.}
-  - {t: Sft+8, s: Sft+9}
-  - {t: ']', s: \}
-  - {t: 'Sft+]', s: Sft+\}
+  - {t: "<", s: ">"}
+  - {t: "(", s: ")"}
+  - {t: "[", s: "]"}
+  - {t: "{", s: "}"}
   - ''
   - ''
   - '1'
@@ -77,18 +78,18 @@ layers:
   - '0'
   - ''
   - {t: ▽, type: trans}
-  - Sft+-
-  - {t: '''', s: ;}
-  - Sft+6
-  - Sft+[
-  - '='
+  - "="
+  - {t: ":", s: ";"}
+  - "&"
+  - '`'
+  - "^"
   - ''
   - ''
-  - INT1
-  - INT YEN
+  - '\'
+  - "¥"
   - /
-  - '['
-  - {t: Sft+/, s: Sft+1}
+  - "@"
+  - {t: "?", s: "!"}
   - ''
   - ''
   - ''
@@ -102,6 +103,7 @@ layers:
   - ''
   - ''
   - ''
+
   Mix:
   - {t: ▽, type: trans}
   - F1
@@ -121,11 +123,11 @@ layers:
   - '3'
   - '4'
   - '5'
-  - BSPC
+  - "⌫"
   - '-'
-  - Sft+-
-  - Sft+;
-  - Sft+2
+  - "="
+  - "+"
+  - '"'
   - F12
   - {t: ▽, type: trans}
   - '6'
@@ -135,10 +137,10 @@ layers:
   - '0'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - TAB
-  - INS
-  - HOME
-  - END
+  - "⇥"
+  - Ins
+  - Home
+  - End
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - ''
@@ -146,34 +148,35 @@ layers:
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - BACKSPACE
+  - "⌫"
   - {t: ▽, type: trans}
   - {type: held}
   - {t: ▽, type: trans}
   - ''
   - ''
   - ''
+
   Adjust:
   - BT CLR
-  - {t: BT, h: '0'}
-  - {t: BT, h: '1'}
-  - {t: BT, h: '2'}
-  - {t: BT, h: '3'}
-  - {t: BT, h: '4'}
+  - BT 0
+  - BT 1
+  - BT 2
+  - BT 3
+  - BT 4
   - ''
   - ''
   - ''
   - ''
   - ''
   - ''
-  - '&studio_unlock'
-  - {t: BT DISC, h: '0'}
-  - {t: BT DISC, h: '1'}
-  - {t: BT DISC, h: '2'}
-  - {t: BT DISC, h: '3'}
-  - {t: BT DISC, h: '4'}
+  - Studio
+  - {t: "BT✗0"}
+  - {t: "BT✗1"}
+  - {t: "BT✗2"}
+  - {t: "BT✗3"}
+  - {t: "BT✗4"}
   - {t: Symbol, h: toggle}
-  - {t: Base, h: toggle}
+  - {t: Base, h: to}
   - ''
   - ''
   - ''
@@ -204,29 +207,30 @@ layers:
   - ''
   - ''
   - ''
+
   Navi:
   - ''
   - ''
   - ''
-  - '&mmv MOVE_UP'
-  - PAGE UP
-  - PAGE DOWN
-  - '&mkp MB1'
-  - '&mkp MB3'
-  - '&mkp MB2'
-  - '&msc SCRL_UP'
-  - '&msc SCRL_DOWN'
+  - {t: "🖱↑", type: custom}
+  - PgUp
+  - PgDn
+  - {t: "🖱L", type: custom}
+  - {t: "🖱M", type: custom}
+  - {t: "🖱R", type: custom}
+  - {t: "🖱⇑", type: custom}
+  - {t: "🖱⇓", type: custom}
   - ''
   - ''
   - ''
-  - '&mmv MOVE_LEFT'
-  - '&mmv MOVE_DOWN'
-  - '&mmv MOVE_RIGHT'
-  - '&msc SCRL_UP'
-  - LEFT
-  - DOWN
-  - UP
-  - RIGHT
+  - {t: "🖱←", type: custom}
+  - {t: "🖱↓", type: custom}
+  - {t: "🖱→", type: custom}
+  - {t: "🖱⇑", type: custom}
+  - "←"
+  - "↓"
+  - "↑"
+  - "→"
   - ''
   - ''
   - {t: ▽, type: trans}
@@ -234,7 +238,7 @@ layers:
   - ''
   - ''
   - ''
-  - '&msc SCRL_DOWN'
+  - {t: "🖱⇓", type: custom}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -255,6 +259,7 @@ layers:
   - ''
   - ''
   - ''
+
   NumPad:
   - Debug
   - ''
@@ -262,11 +267,11 @@ layers:
   - ''
   - ''
   - ''
-  - KP 7
-  - KP 8
-  - KP 9
-  - KP MINUS
-  - KP MULTIPLY
+  - '7'
+  - '8'
+  - '9'
+  - {t: "[-]"}
+  - {t: "[×]"}
   - ''
   - ''
   - ''
@@ -274,11 +279,11 @@ layers:
   - ''
   - ''
   - ''
-  - KP 4
-  - KP 5
-  - KP 6
-  - KP PLUS
-  - KP DIVIDE
+  - '4'
+  - '5'
+  - '6'
+  - {t: "[+]"}
+  - {t: "[÷]"}
   - ''
   - ''
   - ''
@@ -288,9 +293,9 @@ layers:
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - KP 1
-  - KP 2
-  - KP 3
+  - '1'
+  - '2'
+  - '3'
   - ''
   - ''
   - ''
@@ -300,19 +305,20 @@ layers:
   - {type: held}
   - ''
   - Debug
-  - KP 0
-  - KP DOT
-  - KP ENTER
+  - '0'
+  - {t: "[.]"}
+  - {t: "[↵]"}
   - ''
   - ''
   - ''
+
   Debug:
   - BT CLR
-  - {t: BT, h: '0'}
-  - {t: BT, h: '1'}
-  - {t: BT, h: '2'}
-  - {t: BT, h: '3'}
-  - {t: BT, h: '4'}
+  - BT 0
+  - BT 1
+  - BT 2
+  - BT 3
+  - BT 4
   - ''
   - ''
   - ''
@@ -336,10 +342,10 @@ layers:
   - ''
   - ''
   - ''
-  - '&bootloader'
+  - {t: Boot, type: custom}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - '&bootloader'
+  - {t: Boot, type: custom}
   - ''
   - ''
   - ''
@@ -357,44 +363,45 @@ layers:
   - ''
   - ''
   - ''
+
   Symbols:
   - ''
-  - Sft+1
-  - '['
-  - Sft+3
-  - Sft+4
-  - Sft+5
-  - '='
-  - Sft+6
-  - Sft+'
-  - Sft+8
-  - Sft+9
-  - Sft+INT YEN
+  - "!"
+  - "@"
+  - "#"
+  - "$"
+  - "%"
+  - "^"
+  - "&"
+  - "*"
+  - "("
+  - ")"
+  - "|"
   - ''
   - ''
-  - ']'
-  - \
-  - Sft+]
-  - Sft+\
-  - Sft+-
-  - Sft+INT1
+  - "["
+  - "]"
+  - "{"
+  - "}"
+  - "="
+  - "_"
   - '-'
-  - Sft+;
-  - Sft+2
-  - Sft+7
+  - "+"
+  - '"'
+  - "'"
   - ''
   - ''
-  - \
-  - Sft+9
-  - Sft+INT YEN
-  - INT1
+  - "]"
+  - ")"
+  - "|"
+  - '\'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - /
-  - Sft+/
-  - Sft+[
-  - Sft+=
-  - Sft+7
+  - "?"
+  - '`'
+  - "~"
+  - "'"
   - ''
   - ''
   - ''
@@ -402,9 +409,9 @@ layers:
   - ''
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - Sft+=
+  - "~"
   - {t: ▽, type: trans}
-  - Sft+[
+  - '`'
   - ''
   - ''
   - ''
